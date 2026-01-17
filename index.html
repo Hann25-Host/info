@@ -19,6 +19,25 @@
             align-items: center;
             min-height: 100vh;
             padding-bottom: 60px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Efek Partikel Bintang di Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: radial-gradient(white 1px, transparent 1px);
+            background-size: 50px 50px;
+            opacity: 0.1;
+            z-index: -1;
+            animation: starsMove 100s linear infinite;
+        }
+
+        @keyframes starsMove {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
         }
 
         @keyframes gradientBG {
@@ -27,7 +46,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Header Card */
+        /* Header Card dengan Animasi Floating */
         .header-card {
             width: 85%;
             max-width: 400px;
@@ -40,6 +59,12 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
         }
 
         .profile-pic {
@@ -83,7 +108,7 @@
             text-transform: uppercase;
         }
 
-        /* Tombol Link Mewah */
+        /* Tombol Link dengan Animasi Shimmer */
         .btn-link {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -95,7 +120,24 @@
             justify-content: space-between;
             text-decoration: none;
             color: white;
+            position: relative;
+            overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        /* Efek Kilat (Shimmer) */
+        .btn-link::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shimmer 4s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { left: -100%; }
+            30%, 100% { left: 150%; }
         }
 
         .btn-link:hover {
@@ -104,6 +146,8 @@
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
+
+        .btn-link:active { transform: scale(0.98); }
 
         .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
         
