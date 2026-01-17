@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HANN 25 - Digital Profile</title>
+    <title>HANN 25 - Access Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
@@ -16,26 +16,9 @@
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Scanline Effect */
-        .profile-container::after {
-            content: "";
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 2px;
-            background: rgba(59, 130, 246, 0.5);
-            box-shadow: 0 0 15px #3b82f6;
-            animation: scan 3s linear infinite;
-            z-index: 10;
-        }
-
-        @keyframes scan {
-            0% { top: 0; }
-            100% { top: 100%; }
-        }
-
-        /* Glassmorphism Button */
+        /* Efek Tombol Mewah */
         .glass-btn {
             background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(12px);
@@ -50,23 +33,34 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
+        .glass-btn:active { transform: scale(0.97); }
+
+        /* Header Mewah Baru */
+        .header-floating {
+            background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.01) 100%);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 32px;
+            width: 100%;
+        }
+
         .text-header {
             font-size: 0.65rem;
             font-weight: 800;
             letter-spacing: 0.4em;
-            color: #4b5563;
+            color: #3f3f46;
             text-transform: uppercase;
         }
 
         .bg-glow {
             position: fixed;
-            width: 500px;
-            height: 500px;
+            width: 400px;
+            height: 400px;
             background: #3b82f6;
-            filter: blur(180px);
+            filter: blur(150px);
             opacity: 0.1;
             z-index: -1;
-            top: -10%;
+            top: 5%;
         }
     </style>
 </head>
@@ -76,32 +70,33 @@
 
     <div class="w-full max-w-sm flex flex-col items-center">
         
-        <div class="text-center mb-10 relative profile-container">
-            <div class="w-24 h-24 bg-zinc-900 rounded-2xl flex items-center justify-center text-4xl shadow-2xl mb-4 mx-auto border-2 border-zinc-800 relative overflow-hidden">
+        <div class="header-floating p-8 mb-10 mt-4 flex flex-col items-center text-center shadow-2xl">
+            <div class="w-20 h-20 bg-zinc-900 rounded-2xl flex items-center justify-center text-4xl mb-4 border border-zinc-800 shadow-inner">
                 👤
-                <div class="absolute inset-0 bg-blue-500/5"></div>
             </div>
-            <h1 class="text-2xl font-800 tracking-tight">HANN 25</h1>
-            <p class="text-blue-500 text-[10px] font-bold tracking-[0.3em] uppercase mt-2">Verified Terminal</p>
+            <h1 class="text-2xl font-800 tracking-tighter uppercase italic">HANN<span class="text-blue-500">25</span></h1>
+            <div class="mt-2 px-3 py-1 bg-blue-500/10 border border-blue-500/20 rounded-full">
+                <p class="text-[8px] font-800 text-blue-400 tracking-[0.2em] uppercase">Verified Merchant</p>
+            </div>
         </div>
 
         <div class="w-full space-y-3">
-            <div class="text-center py-2 text-header">KONTAK</div>
+            <div class="text-center py-4 text-header">KONTAK</div>
             
             <a href="https://wa.me/6289603014462" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group">
                 <span class="flex items-center gap-4">
                     <span>💬</span>
                     <span class="font-600 text-sm">WA UTAMA</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
 
             <a href="https://wa.me/6287733274259" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group">
                 <span class="flex items-center gap-4">
                     <span>📞</span>
-                    <span class="font-600 text-sm">WA CADANGAN</span>
+                    <span class="font-600 text-sm text-zinc-300">WA CADANGAN</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
 
             <a href="https://t.me/hanntwentyfive" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group">
@@ -109,12 +104,12 @@
                     <span>✈️</span>
                     <span class="font-600 text-sm">TELEGRAM</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
         </div>
 
-        <div class="w-full space-y-3 mt-6">
-            <div class="text-center py-2 text-header">SALURAN STOK/TESTI</div>
+        <div class="w-full space-y-3">
+            <div class="text-center py-8 text-header">SALURAN STOK/TESTI</div>
 
             <a href="https://whatsapp.com/channel/0029Vb7ACqXHVvTkE98lu31L" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group border-blue-500/20">
                 <span class="flex items-center gap-4">
@@ -129,19 +124,19 @@
                     <span>🔥</span>
                     <span class="font-600 text-sm">SALURAN TELE</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
         </div>
 
-        <div class="w-full space-y-3 mt-6">
-            <div class="text-center py-2 text-header">GRUP JB ALLGAME</div>
+        <div class="w-full space-y-3">
+            <div class="text-center py-8 text-header">GRUP JB ALLGAME</div>
 
             <a href="https://chat.whatsapp.com/IvgsQyZHSUcAzRcWTEEIJF" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group">
                 <span class="flex items-center gap-4">
                     <span>🎮</span>
                     <span class="font-600 text-sm">JB 1 TERBUKA</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
 
             <a href="https://chat.whatsapp.com/BA2PJF9pPPoLJrkOuIwbse" class="glass-btn w-full py-4 px-6 rounded-2xl flex items-center justify-between group">
@@ -149,17 +144,15 @@
                     <span>⚔️</span>
                     <span class="font-600 text-sm">JB 2 TERBUKA</span>
                 </span>
-                <span class="text-zinc-600 group-hover:text-blue-400">➜</span>
+                <span class="text-zinc-600 group-hover:text-blue-400 transition-colors">➜</span>
             </a>
         </div>
 
-        <footer class="mt-16 text-center opacity-30">
-            <p class="text-[9px] font-800 tracking-[0.4em] uppercase">Security Level: High Access</p>
-            <p class="text-[8px] mt-2">© 2026 HANN 25 DIGITAL</p>
+        <footer class="mt-20 mb-10 text-center">
+            <p class="text-[9px] font-800 tracking-[0.5em] text-zinc-800 uppercase italic">HANN 25 ACCESS</p>
         </footer>
 
     </div>
 
 </body>
-              </html>
-              
+</html>
