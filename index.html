@@ -79,7 +79,22 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
+        /* Styling Judul & Centang Hijau */
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin: 10px 0 5px;
+        }
+
+        h1 { font-size: 32px; margin: 0; letter-spacing: 2px; font-weight: 700; }
+
+        .wa-verify {
+            width: 28px;
+            height: 28px;
+            fill: #25D366; /* Warna Hijau WhatsApp */
+        }
 
         .verified-badge {
             color: #3b82f6;
@@ -125,7 +140,6 @@
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        /* Efek Kilat (Shimmer) */
         .btn-link::before {
             content: "";
             position: absolute;
@@ -151,7 +165,6 @@
 
         .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
         
-        /* Logo PNG Style */
         .btn-content img {
             width: 24px;
             height: 24px;
@@ -176,7 +189,14 @@
         <div class="profile-pic">
             <img src="logo.png" alt="Profile" style="width: 100%; border-radius: 28px;">
         </div>
-        <h1>HANN 25</h1>
+        
+        <div class="title-wrapper">
+            <h1>HANN 25</h1>
+            <svg class="wa-verify" viewBox="0 0 24 24">
+                <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M17.3,9.4l-6.3,6.3c-0.4,0.4-1,0.4-1.4,0l-2.8-2.8 c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l2.1,2.1l5.6-5.6c0.4-0.4,1-0.4,1.4,0S17.7,9,17.3,9.4z"></path>
+            </svg>
+        </div>
+
         <div class="verified-badge">Verified Merchant</div>
     </div>
 
