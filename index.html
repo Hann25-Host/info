@@ -5,168 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANN 25 - Access</title>
     <style>
-        /* Animasi Background Berjalan */
+        /* 1. Animasi Background Berjalan (Smooth) */
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: linear-gradient(-45deg, #000000, #121212, #0f172a, #000000);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(125deg, #000000, #0a0a0a, #0d1b3e, #000000);
+            background-size: 300% 300%;
+            animation: moveGradient 12s ease infinite;
             color: white;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
-            padding-bottom: 40px;
         }
 
-        @keyframes gradientBG {
+        @keyframes moveGradient {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
-        /* Card Profil Atas */
-        .header-card {
+        /* 2. Header Profil (Biar Tidak Sepi) */
+        .header-container {
             width: 85%;
             max-width: 400px;
-            margin-top: 40px;
-            padding: 35px 20px;
+            margin-top: 45px;
+            padding: 35px 15px;
             text-align: center;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 45px;
         }
 
-        .profile-pic {
+        .profile-img {
             width: 85px;
             height: 85px;
-            background: #1e293b;
-            border-radius: 25px;
+            background: #161b22;
+            border-radius: 24px;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .profile-pic svg { width: 45px; fill: #64748b; }
+        .profile-img svg { width: 45px; fill: #4a5568; }
 
         h1 { font-size: 32px; margin: 5px 0; letter-spacing: 1px; }
 
-        .verified-text {
+        .verified-label {
             color: #3b82f6;
             font-size: 10px;
             font-weight: bold;
             letter-spacing: 3px;
             text-transform: uppercase;
-            animation: glow 2s infinite;
+            animation: textGlow 2.5s infinite;
         }
 
-        @keyframes glow {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; text-shadow: 0 0 10px #3b82f6; }
+        @keyframes textGlow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; text-shadow: 0 0 8px #3b82f6; }
         }
 
-        /* Container Link */
-        .content { width: 90%; max-width: 400px; margin-top: 25px; }
+        /* 3. Tombol & List */
+        .main-content { width: 90%; max-width: 400px; margin-top: 20px; }
 
-        .label {
+        .label-group {
             text-align: center;
-            font-size: 12px;
-            letter-spacing: 4px;
+            font-size: 11px;
+            letter-spacing: 5px;
             margin: 30px 0 15px;
             color: #ffffff;
             font-weight: bold;
-            text-transform: uppercase;
         }
 
-        .btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding: 16px 20px;
+        .link-btn {
+            background: #111111;
+            border: 1px solid #1f1f1f;
+            border-radius: 22px;
+            padding: 18px 22px;
             margin-bottom: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: white;
+            position: relative;
+            overflow: hidden;
             transition: 0.3s;
         }
 
-        .btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #3b82f6;
-            transform: translateY(-2px);
+        /* Efek Kilatan Cahaya (Shimmer) di Tombol */
+        .link-btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+            transition: 0.5s;
         }
 
-        /* Warna Khusus Tombol Aktif (Border Biru seperti di gambar) */
-        .btn-active { border: 1.5px solid #1d4ed8; }
+        .link-btn:hover::after {
+            left: 100%;
+            transition: 0.6s;
+        }
 
-        .left-side { display: flex; align-items: center; gap: 12px; font-weight: 500; font-size: 15px; }
-        .blue-text { color: #3b82f6; }
-        .arrow-icon { color: #1d4ed8; font-size: 18px; }
+        /* Border biru untuk tombol highlight */
+        .active-border { border: 1.5px solid #1d4ed8; }
 
-        .footer-text {
-            margin-top: 50px;
-            font-size: 10px;
-            color: #333;
+        .btn-left { display: flex; align-items: center; gap: 14px; font-weight: 500; font-size: 15px; }
+        .arrow-blue { color: #1d4ed8; font-weight: bold; font-size: 18px; }
+        .text-blue { color: #3b82f6; }
+
+        .footer {
+            margin: 50px 0 30px;
+            font-size: 9px;
+            color: #222;
             letter-spacing: 5px;
-            text-transform: uppercase;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="header-card">
-        <div class="profile-pic">
+    <div class="header-container">
+        <div class="profile-img">
             <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         </div>
         <h1>HANN 25</h1>
-        <div class="verified-text">Verified Merchant</div>
+        <div class="verified-label">VERIFIED MERCHANT</div>
     </div>
 
-    <div class="content">
-        <div class="label">KONTAK</div>
-        <a href="#" class="btn">
-            <div class="left-side"><span>💬</span> WA UTAMA</div>
-            <span class="arrow-icon">➜</span>
+    <div class="main-content">
+        <div class="label-group">KONTAK</div>
+        <a href="#" class="link-btn active-border">
+            <div class="btn-left"><span>💬</span> WA UTAMA</div>
+            <span class="arrow-blue">➜</span>
         </a>
-        <a href="#" class="btn">
-            <div class="left-side"><span>📞</span> WA CADANGAN</div>
-            <span class="arrow-icon">➜</span>
+        <a href="#" class="link-btn">
+            <div class="btn-left"><span>📞</span> WA CADANGAN</div>
+            <span class="arrow-blue">➜</span>
         </a>
-        <a href="#" class="btn">
-            <div class="left-side"><span>✈️</span> TELEGRAM</div>
-            <span class="arrow-icon">➜</span>
-        </a>
-
-        <div class="label">SALURAN STOK/TESTI</div>
-        <a href="#" class="btn btn-active">
-            <div class="left-side"><span class="blue-text">📢</span> <span class="blue-text">SALURAN WA</span></div>
-            <span class="arrow-icon">🏁</span>
-        </a>
-        <a href="#" class="btn">
-            <div class="left-side"><span>🔥</span> SALURAN TELE</div>
-            <span class="arrow-icon">➜</span>
+        <a href="#" class="link-btn">
+            <div class="btn-left"><span>✈️</span> TELEGRAM</div>
+            <span class="arrow-blue">➜</span>
         </a>
 
-        <div class="label">GRUP JB ALLGAME</div>
-        <a href="#" class="btn btn-active">
-            <div class="left-side"><span>🎮</span> JB 1 TERBUKA</div>
-            <span class="arrow-icon">➜</span>
+        <div class="label-group">SALURAN STOK/TESTI</div>
+        <a href="#" class="link-btn">
+            <div class="btn-left"><span>📢</span> <span class="text-blue">SALURAN WA</span></div>
+            <span class="arrow-blue">➜</span>
         </a>
-        <a href="#" class="btn">
-            <div class="left-side"><span>⚔️</span> JB 2 TERBUKA</div>
-            <span class="arrow-icon">➜</span>
+        <a href="#" class="link-btn">
+            <div class="btn-left"><span>🔥</span> SALURAN TELE</div>
+            <span class="arrow-blue">➜</span>
+        </a>
+
+        <div class="label-group">GRUP JB ALLGAME</div>
+        <a href="#" class="link-btn active-border">
+            <div class="btn-left"><span>🎮</span> JB 1 TERBUKA</div>
+            <span class="arrow-blue">➜</span>
+        </a>
+        <a href="#" class="link-btn">
+            <div class="btn-left"><span>⚔️</span> JB 2 TERBUKA</div>
+            <span class="arrow-blue">➜</span>
         </a>
     </div>
 
-    <div class="footer-text">HANN 25 ACCESS</div>
+    <div class="footer">HANN 25 ACCESS</div>
 
 </body>
 </html>
