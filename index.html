@@ -83,24 +83,48 @@
 
         h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
 
-        /* Style Verified Badge */
-        .verified-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            color: #0ea5e9;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: pulseGlow 3s infinite;
-        }
+        /* Style Verified Badge dengan Efek Mengkilap Lewat */
+.verified-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #0ea5e9;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden; /* Biar kilatan nggak keluar jalur */
+    padding: 5px 10px;
+}
 
-        .verified-badge img {
-            width: 15px; 
-            height: 15px;
-        }
+/* Animasi Cahaya Lewat (Shimmer) */
+.verified-badge::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(14, 165, 233, 0.4), transparent);
+    transform: skewX(-20deg);
+    animation: shimmerVerified 3s infinite;
+}
+
+@keyframes shimmerVerified {
+    0% { left: -150%; }
+    30% { left: 150%; }
+    100% { left: 150%; }
+}
+
+.verified-badge img {
+    width: 15px; 
+    height: 15px;
+    position: relative;
+    z-index: 1; /* Biar ikon tetep di atas cahaya */
+}
+
 
         @keyframes pulseGlow {
             0%, 100% { opacity: 0.5; text-shadow: 0 0 0px #0ea5e9; }
@@ -253,7 +277,7 @@
     </div>
 
         <div class="footer">
-        © 2026 ALL RIGHTS RESERVED
+        COPYRIGHT © 2026 HANN 25
     </div>
 
 
