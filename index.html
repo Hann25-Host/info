@@ -85,26 +85,44 @@
 
         /* Style Verified Badge */
         .verified-badge {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-            color: #0ea5e9;
-            font-size: 11px;
-            font-weight: bold;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    color: #0ea5e9;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    /* Animasi buat teksnya juga */
+    opacity: 0;
+    animation: textSmoothEntry 1s ease-out 0.3s forwards;
+}
+
+@keyframes textSmoothEntry {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
 
         .verified-badge img {
-            width: 15px; 
-            height: 15px;
-        }
+    width: 15px; 
+    height: 15px;
+    opacity: 0; /* Sembunyi dulu */
+    transform: scale(0.8); /* Mulai dari agak kecil */
+    animation: iconSmoothEntry 1.2s ease-out 0.5s forwards; /* Muncul perlahan setelah delay 0.5 detik */
+}
 
-        @keyframes pulseGlow {
-            0%, 100% { opacity: 0.5; text-shadow: 0 0 0px #0ea5e9; }
-            50% { opacity: 1; text-shadow: 0 0 15px #0ea5e9; }
-        }
+@keyframes iconSmoothEntry {
+    from {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 
         /* Konten Utama */
         .container { width: 90%; max-width: 400px; margin-top: 20px; }
