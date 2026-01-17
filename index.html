@@ -59,30 +59,37 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            /* Animasi float dihapus sesuai permintaan */
         }
 
+        /* Profil Bulat & Animasi Pinggir */
         .profile-pic {
             width: 90px;
             height: 90px;
             background: #111;
-            border-radius: 28px;
+            border-radius: 50%;
             margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(14, 165, 233, 0.5);
+            overflow: hidden;
+            animation: glowPulse 3s infinite ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; }
         }
 
         h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
 
-        /* Style Verified Badge dengan Ikon */
+        /* Style Verified Badge */
         .verified-badge {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px; /* Jarak antara gambar dan teks */
-            color: #3b82f6;
+            gap: 3px;
+            color: #0ea5e9;
             font-size: 11px;
             font-weight: bold;
             letter-spacing: 2px;
@@ -91,13 +98,13 @@
         }
 
         .verified-badge img {
-            width: 16px; /* Ukuran centang biru */
-            height: 16px;
+            width: 15px; 
+            height: 15px;
         }
 
         @keyframes pulseGlow {
-            0%, 100% { opacity: 0.5; text-shadow: 0 0 0px #3b82f6; }
-            50% { opacity: 1; text-shadow: 0 0 15px #3b82f6; }
+            0%, 100% { opacity: 0.5; text-shadow: 0 0 0px #0ea5e9; }
+            50% { opacity: 1; text-shadow: 0 0 15px #0ea5e9; }
         }
 
         /* Konten Utama */
@@ -113,7 +120,7 @@
             text-transform: uppercase;
         }
 
-        /* Tombol Link dengan Animasi Shimmer */
+        /* Tombol Link */
         .btn-link {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -146,20 +153,13 @@
 
         .btn-link:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: #3b82f6;
+            border-color: #0ea5e9;
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
 
-        .btn-link:active { transform: scale(0.98); }
-
         .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
-        
-        .btn-content img {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-        }
+        .btn-content img { width: 24px; height: 24px; object-fit: contain; }
 
         .arrow-right { color: #1d4ed8; font-weight: bold; font-size: 18px; }
 
@@ -177,12 +177,12 @@
 
     <div class="header-card">
         <div class="profile-pic">
-            <img src="logo.png" alt="Profile" style="width: 100%; border-radius: 28px;">
+            <img src="logo.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <h1>HANN 25</h1>
         <div class="verified-badge">
-            <img src="https://i.ibb.co.com/JwXzGGL4/CITYPNG-COM-HD-Blue-Badge-Verified-Tick-Mark-PNG-4000x4000.png" alt="Verified Badge"> 
-            Verified
+            <img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" alt="Verified Badge"> 
+            Verified 
         </div>
     </div>
 
@@ -231,31 +231,22 @@
         <div class="label-center">SOSIAL MEDIA</div>
 
         <a href="https://youtube.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT"> 
-                YOUTUBE
-            </div>
+            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT"> YOUTUBE</div>
             <span class="arrow-right">➜</span>
         </a>
 
         <a href="https://www.tiktok.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content">
-                <img src="https://i.ibb.co.com/35h1DydR/20260117-114717.png" alt="TK"> 
-                TIKTOK
-            </div>
+            <div class="btn-content"><img src="https://i.ibb.co.com/35h1DydR/20260117-114717.png" alt="TK"> TIKTOK</div>
             <span class="arrow-right">➜</span>
         </a>
 
         <a href="https://instagram.com/hanntwentyfive" target="_blank" class="btn-link">
-            <div class="btn-content">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="IG"> 
-                INSTAGRAM
-            </div>
+            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="IG"> INSTAGRAM</div>
             <span class="arrow-right">➜</span>
         </a>
     </div>
 
-    <div class="footer">HANN 25</div>
+    <div class="footer">©HANN25</div>
 
 </body>
 </html>
