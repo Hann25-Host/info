@@ -5,77 +5,102 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANN 25 - INFO</title>
     <style>
-        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505); background-size: 400% 400%; animation: gradientBG 15s ease infinite; color: white; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative; }
+        body { 
+            margin: 0; padding: 0; font-family: 'Inter', sans-serif; 
+            background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505); 
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite; 
+            color: white; display: flex; flex-direction: column; align-items: center; 
+            min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative; 
+        }
         body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px; opacity: 0.1; z-index: -1; animation: starsMove 100s linear infinite; }
         @keyframes starsMove { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
+        /* Navbar Identik Testimoni */
         .navbar {
-            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 3000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.2); justify-content: space-between;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.1); justify-content: space-between;
         }
 
-        .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 3100; }
-        .burger span { display: block; position: absolute; height: 3px; width: 100%; background: #ffffff; border-radius: 9px; transition: .25s ease-in-out; }
-        .burger span:nth-child(1) { top: 0px; } .burger span:nth-child(2) { top: 8px; } .burger span:nth-child(3) { top: 16px; }
-        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
-        .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
-        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+        .burger { width: 25px; height: 18px; cursor: pointer; position: relative; z-index: 3100; }
+        .burger span { display: block; position: absolute; height: 2px; width: 100%; background: #ffffff; border-radius: 9px; transition: .25s; }
+        .burger span:nth-child(1) { top: 0px; } .burger span:nth-child(2) { top: 7px; } .burger span:nth-child(3) { top: 14px; }
+        .burger.open span:nth-child(1) { top: 7px; transform: rotate(45deg); }
+        .burger.open span:nth-child(2) { opacity: 0; }
+        .burger.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
 
         .sidebar {
-            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
+            position: fixed; top: 0; left: -100%; width: 250px; height: 100%;
             background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(20px);
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2500; padding: 100px 20px;
-            border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box;
+            transition: 0.4s; z-index: 2500; padding: 80px 20px;
+            border-right: 1px solid rgba(14, 165, 233, 0.2); box-sizing: border-box;
         }
         .sidebar.active { left: 0; }
-        
-        .sidebar a { 
-            display: block; padding: 15px; color: white; text-decoration: none; 
-            font-weight: 600; border-radius: 12px; margin-bottom: 10px;
-            border: 1px solid transparent; transition: all 0.3s ease;
-        }
-        
-        .sidebar a:hover { 
-            background: rgba(14, 165, 233, 0.15) !important; 
-            color: #0ea5e9 !important; 
-            border-color: rgba(14, 165, 233, 0.4) !important;
-            transform: translateX(5px);
-        }
-
+        .sidebar a { display: block; padding: 12px; color: white; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 10px; margin-bottom: 8px; transition: 0.3s; }
+        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2000; }
 
-        .header-card { width: 85%; max-width: 400px; margin-top: 100px; padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
-        .profile-pic { width: 90px; height: 90px; background: #111; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(14, 165, 233, 0.5); overflow: hidden; animation: glowPulse 3s infinite ease-in-out; }
-        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); } 50% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; } }
-        h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
-        .verified-badge { display: flex; align-items: center; justify-content: center; gap: 3px; color: #0ea5e9; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: entry 1s ease-out 0.4s forwards; }
-        @keyframes entry { to { opacity: 1; transform: scale(1); } }
-        .container { width: 90%; max-width: 400px; margin-top: 20px; }
-        .label-center { text-align: center; font-size: 12px; letter-spacing: 6px; margin: 35px 0 15px; color: rgba(255,255,255,0.8); font-weight: bold; text-transform: uppercase; }
-        .btn-link { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; padding: 18px 24px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: white; position: relative; transition: 0.4s; }
-        .btn-link:hover { background: rgba(255, 255, 255, 0.1); border-color: #0ea5e9; transform: translateY(-3px) scale(1.02); }
-        .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
-        .btn-content img { width: 24px; height: 24px; object-fit: contain; }
-        .arrow-right { color: #0ea5e9; font-weight: bold; font-size: 18px; }
-        .footer { margin-top: 80px; margin-bottom: 30px; padding-top: 20px; font-size: 10px; color: rgba(255, 255, 255, 0.3); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 80%; max-width: 300px; letter-spacing: 3px; }
+        /* Konsistensi Lebar & Slim Card */
+        .header-card, .container, .btn-link {
+            width: 92%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        .header-card { 
+            margin-top: 85px; padding: 25px 20px; text-align: center; 
+            background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 25px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4); 
+        }
+
+        .profile-pic { 
+            width: 75px; height: 75px; background: #111; border-radius: 50%; 
+            margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; 
+            border: 2px solid rgba(14, 165, 233, 0.5); overflow: hidden; 
+            animation: glowPulse 3s infinite ease-in-out; 
+        }
+        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); } 50% { box-shadow: 0 0 15px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; } }
+        
+        h1 { font-size: 24px; margin: 5px 0; letter-spacing: 1.5px; font-weight: 800; }
+        
+        .verified-badge { display: flex; align-items: center; justify-content: center; gap: 4px; color: #0ea5e9; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
+
+        .container { margin-top: 10px; }
+        .label-center { text-align: center; font-size: 11px; letter-spacing: 4px; margin: 30px 0 12px; color: rgba(255,255,255,0.6); font-weight: bold; text-transform: uppercase; }
+        
+        .btn-link { 
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 18px; padding: 16px 20px; margin-bottom: 12px; 
+            display: flex; align-items: center; justify-content: space-between; 
+            text-decoration: none; color: white; transition: 0.3s; 
+        }
+        .btn-link:hover { background: rgba(255, 255, 255, 0.08); border-color: #0ea5e9; transform: translateY(-2px); }
+        .btn-content { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 14px; }
+        .btn-content img { width: 22px; height: 22px; object-fit: contain; }
+        .arrow-right { color: #0ea5e9; font-weight: bold; font-size: 16px; }
+
+        .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
     </style>
 </head>
 <body>
     <nav class="navbar">
         <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-        <span style="font-weight: 900; letter-spacing: 2px;">DASHBOARD</span>
-        <div style="width:30px;"></div>
+        <span style="font-weight: 900; letter-spacing: 1.5px; font-size: 14px;">DASHBOARD</span>
+        <div style="width:25px;"></div>
     </nav>
+
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar"></div>
+
     <div class="header-card">
         <div class="profile-pic"><img src="logo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
         <h1>HANN 25</h1>
-        <div class="verified-badge"><img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" style="width:15px;height:15px;"> Verified</div>
+        <div class="verified-badge"><img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" style="width:14px;height:14px;"> Verified</div>
     </div>
+
     <div class="container" id="dynamic-content"></div>
     <div class="footer">COPYRIGHT © HANN 25</div>
 
