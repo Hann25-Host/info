@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANN 25 - INFO</title>
     <style>
-        /* Animasi Background Mewah */
         body {
             margin: 0;
             padding: 0;
@@ -23,7 +22,6 @@
             position: relative;
         }
 
-        /* Efek Partikel Bintang di Background */
         body::before {
             content: "";
             position: fixed;
@@ -46,11 +44,10 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Header Card */
         .header-card {
             width: 85%;
             max-width: 400px;
-            margin-top: 50px;
+            margin-top: 80px;
             padding: 40px 20px;
             text-align: center;
             background: rgba(255, 255, 255, 0.03);
@@ -61,7 +58,6 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        /* Profil Bulat & Animasi Pinggir */
         .profile-pic {
             width: 90px;
             height: 90px;
@@ -81,52 +77,32 @@
             50% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; }
         }
 
-        h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
+        h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; text-transform: uppercase; }
 
-        /* Style Verified Badge */
         .verified-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    color: #0ea5e9;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0;
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: textSmoothEntry 1s ease-out 0.4s forwards;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            color: #0ea5e9;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: textSmoothEntry 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
 
-@keyframes textSmoothEntry {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+        @keyframes textSmoothEntry { to { opacity: 1; } }
 
-.verified-badge img {
-    width: 15px; 
-    height: 15px;
-    opacity: 0;
-    transform: scale(0.8);
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: iconSmoothEntry 1s ease-out 0.4s forwards;
-}
+        .verified-badge img {
+            width: 15px; height: 15px;
+            animation: iconSmoothEntry 1s ease-out 0.4s forwards;
+            opacity: 0;
+        }
 
-@keyframes iconSmoothEntry {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
+        @keyframes iconSmoothEntry { to { opacity: 1; transform: scale(1); } }
 
-
-
-        /* Konten Utama */
         .container { width: 90%; max-width: 400px; margin-top: 20px; }
 
         .label-center {
@@ -139,7 +115,6 @@
             text-transform: uppercase;
         }
 
-        /* Tombol Link */
         .btn-link {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -165,10 +140,7 @@
             animation: shimmer 4s infinite;
         }
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            30%, 100% { left: 150%; }
-        }
+        @keyframes shimmer { 0% { left: -100%; } 30%, 100% { left: 150%; } }
 
         .btn-link:hover {
             background: rgba(255, 255, 255, 0.1);
@@ -183,20 +155,13 @@
         .arrow-right { color: #1d4ed8; font-weight: bold; font-size: 18px; }
 
         .footer {
-    margin-top: 80px;
-    margin-bottom: 30px;
-    padding-top: 20px;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.3); /* Putih samar biar elegan */
-    letter-spacing: 3px; /* Jarak huruf biar premium */
-    text-align: center;
-    font-weight: 500;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Garis batas halus */
-    width: 80%;
-    max-width: 300px;
-    text-shadow: 0 0 10px rgba(14, 165, 233, 0.2); /* Efek biru sangat tipis */
-}
-        /* --- COPY DARI SINI --- */
+            margin-top: 80px; margin-bottom: 30px; padding-top: 20px;
+            font-size: 10px; color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 3px; text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 80%; max-width: 300px;
+        }
+
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -211,9 +176,10 @@
         .burger span:nth-child(1) { top: 0px; }
         .burger span:nth-child(2) { top: 8px; }
         .burger span:nth-child(3) { top: 16px; }
-        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); background: #fff; }
+        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
         .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
-        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); background: #fff; }
+        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+        
         .sidebar {
             position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(20px);
@@ -224,6 +190,7 @@
         .sidebar a {
             display: block; padding: 15px; color: white; text-decoration: none;
             font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent;
+            font-size: 14px;
         }
         .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
         .overlay {
@@ -233,34 +200,24 @@
     </style>
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <div class="burger" id="burger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
-        <span style="font-weight: 900; letter-spacing: 2px; color: #ffffff;">DASHBOARD</span>
+        <span id="nav-brand" style="font-weight: 900; letter-spacing: 2px; color: #ffffff;">LOADING...</span>
         <div style="width:30px;"></div>
     </nav>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
     <div class="sidebar" id="sidebar">
-        <a href="/">🏠 DASHBOARD</a>
-        <a href="/testimoni">⭐ TESTIMONI</a>
-        <a href="https://wa.me/6289603014462">💬 HUBUNGI SAYA</a>
-    </div>
-    <script>
-        function toggleMenu() {
-            document.getElementById('burger').classList.toggle('open');
-            document.getElementById('sidebar').classList.toggle('active');
-            const overlay = document.getElementById('overlay');
-            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
-        }
-    </script>
+        </div>
+
     <div class="header-card">
         <div class="profile-pic">
-            <img src="logo.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
+            <img id="display-logo" src="" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
-        <h1>HANN 25</h1>
+        <h1 id="display-name">...</h1>
         <div class="verified-badge">
             <img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" alt="Verified Badge"> 
             Verified 
@@ -268,68 +225,87 @@
     </div>
 
     <div class="container" id="dynamic-content">
-    <div style="text-align:center; padding:50px; color:rgba(255,255,255,0.2);">Memuat...</div>
-</div>
-
-        <div class="footer">
-        COPYRIGHT © HANN 25
+        <div style="text-align:center; padding:50px; color:rgba(255,255,255,0.2);">Memuat...</div>
     </div>
+
+    <div class="footer">
+        COPYRIGHT © <span id="footer-name">HANN 25</span>
+    </div>
+
     <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    // PAKAI CONFIG PROJECT ADMINHANN25
-    const firebaseConfig = {
-        apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
-        authDomain: "adminhann25.firebaseapp.com",
-        projectId: "adminhann25",
-        databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app",
-        storageBucket: "adminhann25.firebasestorage.app",
-        messagingSenderId: "1020946488981",
-        appId: "1:1020946488981:web:9b2cf0902f5665e342c59c"
-    };
+        const firebaseConfig = {
+            apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
+            authDomain: "adminhann25.firebaseapp.com",
+            projectId: "adminhann25",
+            databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "adminhann25.firebasestorage.app",
+            messagingSenderId: "1020946488981",
+            appId: "1:1020946488981:web:9b2cf0902f5665e342c59c"
+        };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getDatabase(app);
-    const container = document.getElementById('dynamic-content');
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
 
-    // AMBIL DATA DARI FIREBASE
-    onValue(ref(db, 'dashboard/categories'), (snap) => {
-        if (snap.exists()) {
-            let htmlContent = "";
-            const categories = snap.val();
+        // 1. Sync Profil (Logo & Nama)
+        onValue(ref(db, 'dashboard/profile'), (s) => {
+            if(s.exists()){
+                const d = s.val();
+                document.getElementById('display-logo').src = d.logo;
+                document.getElementById('display-name').innerText = d.name;
+                document.getElementById('nav-brand').innerText = d.name.toUpperCase();
+                document.getElementById('footer-name').innerText = d.name.toUpperCase();
+            }
+        });
 
-            Object.keys(categories).forEach(catId => {
-                const cat = categories[catId];
-                
-                // 1. Render Nama Kategori (Label Center)
-                htmlContent += `<div class="label-center">${cat.name}</div>`;
-                
-                // 2. Render Tombol di dalamnya
-                if (cat.buttons) {
-                    Object.keys(cat.buttons).forEach(btnId => {
-                        const btn = cat.buttons[btnId];
-                        
-                        // Logika Icon (Cek apakah link gambar atau emoji)
-                        const iconHtml = btn.icon.startsWith('http') 
-                            ? `<img src="${btn.icon}" alt="icon">` 
-                            : `<span>${btn.icon || '🔗'}</span>`;
+        // 2. Sync Sidebar Menu
+        onValue(ref(db, 'dashboard/sidebar'), (s) => {
+            const side = document.getElementById('sidebar');
+            side.innerHTML = "";
+            if(s.exists()){
+                s.forEach(child => {
+                    const m = child.val();
+                    side.innerHTML += `<a href="${m.link}">${m.icon} ${m.label.toUpperCase()}</a>`;
+                });
+            }
+        });
 
-                        htmlContent += `
-                            <a href="${btn.link}" target="_blank" class="btn-link">
-                                <div class="btn-content">
-                                    ${iconHtml} ${btn.label}
-                                </div>
-                                <span class="arrow-right">➜</span>
-                            </a>`;
-                    });
-                }
-            });
-            container.innerHTML = htmlContent;
-        } else {
-            container.innerHTML = "<p style='text-align:center; color:#444; margin-top:50px;'>Belum ada menu di Dashboard.</p>";
-        }
-    });
-</script>
+        // 3. Sync Kategori & Tombol
+        onValue(ref(db, 'dashboard/categories'), (snap) => {
+            const container = document.getElementById('dynamic-content');
+            if (snap.exists()) {
+                let html = "";
+                snap.forEach(catChild => {
+                    const cat = catChild.val();
+                    html += `<div class="label-center">${cat.name}</div>`;
+                    if (cat.buttons) {
+                        Object.keys(cat.buttons).forEach(k => {
+                            const b = cat.buttons[k];
+                            const iconHtml = b.icon.startsWith('http') 
+                                ? `<img src="${b.icon}" alt="icon">` 
+                                : `<span>${b.icon}</span>`;
+                            html += `
+                                <a href="${b.link}" target="_blank" class="btn-link">
+                                    <div class="btn-content">${iconHtml} ${b.label}</div>
+                                    <span class="arrow-right">➜</span>
+                                </a>`;
+                        });
+                    }
+                });
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = "<p style='text-align:center; color:#444;'>Belum ada konten.</p>";
+            }
+        });
+
+        window.toggleMenu = () => {
+            document.getElementById('burger').classList.toggle('open');
+            document.getElementById('sidebar').classList.toggle('active');
+            const overlay = document.getElementById('overlay');
+            overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
+        };
+    </script>
 </body>
 </html>
