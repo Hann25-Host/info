@@ -39,31 +39,41 @@
         .sidebar a { display: block; padding: 12px; color: white; text-decoration: none; font-weight: 600; font-size: 14px; border-radius: 10px; margin-bottom: 8px; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2000; }
 
-        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(14, 165, 233, 0.1); border-radius: 15px; padding: 15px; width: 90%; max-width: 380px; display: flex; align-items: center; gap: 15px; }
+        /* Konsistensi Lebar Box */
+        .stats-box, .form-testi, .testi-card, .filters {
+            width: 92%;
+            max-width: 400px; /* Lebar standar mengikuti testi-card */
+            box-sizing: border-box;
+        }
+
+        .stats-box { 
+            margin-top: 85px; background: rgba(255,255,255,0.02); 
+            border: 1px solid rgba(14, 165, 233, 0.1); border-radius: 15px; 
+            padding: 15px; display: flex; align-items: center; gap: 15px; 
+        }
         
         .form-testi { 
             background: rgba(255,255,255,0.02); border: 1px solid rgba(14, 165, 233, 0.1); 
-            border-radius: 12px; padding: 15px; width: fit-content; min-width: 300px; max-width: 90%; 
-            margin: 15px auto; box-sizing: border-box;
+            border-radius: 12px; padding: 15px; margin: 15px 0;
         }
         
         .profile-container { position: relative; width: 70px; height: 70px; margin: 0 auto 10px; border-radius: 50%; border: 2px solid #0ea5e9; overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center; }
         .p-prev-img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; z-index: 3; }
         .avatar-overlay img { width: 100%; height: 100%; object-fit: cover; opacity: 0.8; }
 
-        .btn-pilih-foto { background: none; border: none; color: #0ea5e9; font-size: 11px; cursor: pointer; margin-bottom: 10px; padding: 5px; }
+        .btn-pilih-foto { background: none; border: none; color: #0ea5e9; font-size: 11px; cursor: pointer; margin-bottom: 10px; padding: 5px; width: 100%; }
 
         .s { font-size: 22px; cursor: pointer; color: rgba(255,255,255,0.05); transition: 0.2s; }
         input, textarea { width: 100%; padding: 10px; background: #000; border: 1px solid #222; border-radius: 8px; color: #fff; margin-bottom: 8px; box-sizing: border-box; outline: none; font-size: 13px; }
         .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 12px; border-radius: 8px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 5px; font-size: 13px; }
 
-        .filters { width: 90%; max-width: 380px; display: flex; gap: 8px; margin: 20px 0; }
+        .filters { display: flex; gap: 8px; margin: 10px 0 20px 0; }
         select { background: #000; color: #fff; border: 1px solid rgba(14, 165, 233, 0.1); padding: 8px; border-radius: 8px; flex: 1; outline: none; font-size: 12px; }
         
         .testi-card { 
             background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.03); 
-            border-radius: 12px; padding: 12px; width: 90%; max-width: 380px; margin-bottom: 10px; 
-            position: relative; animation: fadeInUp 0.5s ease forwards; box-sizing: border-box;
+            border-radius: 12px; padding: 12px; margin-bottom: 10px; 
+            position: relative; animation: fadeInUp 0.5s ease forwards;
         }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -73,7 +83,7 @@
         .btn-love.liked svg { fill: #ff4757; stroke: #ff4757; }
         
         .tgl { font-size: 9px; color: #444; position: absolute; top: 12px; right: 12px; }
-        #submitted-msg { text-align: center; display: none; padding: 5px 10px; }
+        #submitted-msg { text-align: center; display: none; padding: 10px 0; }
     </style>
 </head>
 <body>
@@ -129,7 +139,7 @@
     </div>
 
     <div class="filters">
-        <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option></select>
+        <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
         <select id="f-sort" onchange="window.renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
     </div>
 
