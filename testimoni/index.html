@@ -96,7 +96,7 @@
             <div class="profile-container">
                 <img src="" id="p-prev" class="p-prev-img" style="display:none;">
                 <div class="avatar-overlay" id="av-ov">
-                    <img src="https://i.ibb.co.com/HDj6gNdG/user-1.png">
+                    <img src="https://i.ibb.co.com/pBn06NLp/user.png">
                 </div>
             </div>
             <button class="btn-pilih-foto" onclick="document.getElementById('f-in').click()">Pilih Foto Profil</button>
@@ -209,7 +209,7 @@
             filtered.sort((a,b) => fSort === 'new' ? b.ts - a.ts : a.ts - b.ts);
             filtered.forEach(t => {
                 const liked = localStorage.getItem('liked_' + t.id);
-                const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/HDj6gNdG/user-1.png' : t.photo;
+                const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/pBn06NLp/user.png' : t.photo;
                 list.innerHTML += `
                 <div class="testi-card">
                     <span class="tgl">${t.date}</span>
