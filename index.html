@@ -3,76 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HANN 25 - INFO</title>
+    <title>HANN 25 - INFO & TESTI</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
+    
     <style>
-        /* Animasi Background Mewah */
+        /* --- STYLE ASLI HANN 25 (TIDAK ADA YG DIHAPUS) --- */
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             font-family: 'Inter', -apple-system, sans-serif;
             background: linear-gradient(-45deg, #000000, #0a0a0a, #0d1b3e, #050505);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            padding-bottom: 60px;
-            overflow-x: hidden;
-            position: relative;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative;
         }
 
-        /* Efek Partikel Bintang di Background */
         body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background-image: radial-gradient(white 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.1;
-            z-index: -1;
+            background-size: 50px 50px; opacity: 0.1; z-index: -1;
             animation: starsMove 100s linear infinite;
         }
 
-        @keyframes starsMove {
-            from { background-position: 0 0; }
-            to { background-position: 1000px 1000px; }
-        }
+        @keyframes starsMove { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Header Card */
         .header-card {
-            width: 85%;
-            max-width: 400px;
-            margin-top: 50px;
-            padding: 40px 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 40px;
+            width: 85%; max-width: 400px; margin-top: 80px; padding: 40px 20px;
+            text-align: center; background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        /* Profil Bulat & Animasi Pinggir */
         .profile-pic {
-            width: 90px;
-            height: 90px;
-            background: #111;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid rgba(14, 165, 233, 0.5);
-            overflow: hidden;
+            width: 90px; height: 90px; background: #111; border-radius: 50%;
+            margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;
+            border: 2px solid rgba(14, 165, 233, 0.5); overflow: hidden;
             animation: glowPulse 3s infinite ease-in-out;
         }
 
@@ -83,203 +52,247 @@
 
         h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
 
-        /* Style Verified Badge */
         .verified-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    color: #0ea5e9;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0;
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: textSmoothEntry 1s ease-out 0.4s forwards;
-}
-
-@keyframes textSmoothEntry {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.verified-badge img {
-    width: 15px; 
-    height: 15px;
-    opacity: 0;
-    transform: scale(0.8);
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: iconSmoothEntry 1s ease-out 0.4s forwards;
-}
-
-@keyframes iconSmoothEntry {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-
-
-        /* Konten Utama */
-        .container { width: 90%; max-width: 400px; margin-top: 20px; }
-
-        .label-center {
-            text-align: center;
-            font-size: 12px;
-            letter-spacing: 6px;
-            margin: 35px 0 15px;
-            color: rgba(255,255,255,0.8);
-            font-weight: bold;
-            text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center; gap: 3px;
+            color: #0ea5e9; font-size: 11px; font-weight: bold; letter-spacing: 2px;
+            text-transform: uppercase; opacity: 0; animation: textSmoothEntry 1s ease-out 0.4s forwards;
         }
 
-        /* Tombol Link */
+        @keyframes textSmoothEntry { from { opacity: 0; } to { opacity: 1; } }
+
+        .verified-badge img {
+            width: 15px; height: 15px; opacity: 0; transform: scale(0.8);
+            animation: iconSmoothEntry 1s ease-out 0.4s forwards;
+        }
+
+        @keyframes iconSmoothEntry { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+
+        .container { width: 90%; max-width: 400px; margin-top: 20px; }
+        .label-center { text-align: center; font-size: 12px; letter-spacing: 6px; margin: 35px 0 15px; color: rgba(255,255,255,0.8); font-weight: bold; text-transform: uppercase; }
+
         .btn-link {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 22px;
-            padding: 18px 24px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            text-decoration: none;
-            color: white;
-            position: relative;
-            overflow: hidden;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px; padding: 18px 24px; margin-bottom: 14px;
+            display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; color: white; position: relative; overflow: hidden;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .btn-link::before {
-            content: "";
-            position: absolute;
-            top: 0; left: -100%;
-            width: 50%; height: 100%;
+            content: ""; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
             animation: shimmer 4s infinite;
         }
 
-        @keyframes shimmer {
-            0% { left: -100%; }
-            30%, 100% { left: 150%; }
-        }
+        @keyframes shimmer { 0% { left: -100%; } 30%, 100% { left: 150%; } }
 
-        .btn-link:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: #0ea5e9;
-            transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-
+        .btn-link:hover { background: rgba(255, 255, 255, 0.1); border-color: #0ea5e9; transform: translateY(-3px) scale(1.02); box-shadow: 0 10px 20px rgba(0,0,0,0.4); }
         .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
         .btn-content img { width: 24px; height: 24px; object-fit: contain; }
-
         .arrow-right { color: #1d4ed8; font-weight: bold; font-size: 18px; }
 
         .footer {
-    margin-top: 80px;
-    margin-bottom: 30px;
-    padding-top: 20px;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.3); /* Putih samar biar elegan */
-    letter-spacing: 3px; /* Jarak huruf biar premium */
-    text-align: center;
-    font-weight: 500;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Garis batas halus */
-    width: 80%;
-    max-width: 300px;
-    text-shadow: 0 0 10px rgba(14, 165, 233, 0.2); /* Efek biru sangat tipis */
-}
+            margin-top: 80px; margin-bottom: 30px; padding-top: 20px; font-size: 10px;
+            color: rgba(255, 255, 255, 0.3); letter-spacing: 3px; text-align: center;
+            font-weight: 500; border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 80%; max-width: 300px; text-shadow: 0 0 10px rgba(14, 165, 233, 0.2);
+        }
+
+        /* --- STYLE TAMBAHAN NAVBAR & TESTI (TEMA DISAMAKAN) --- */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 1000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .menu-btn { font-size: 24px; cursor: pointer; color: white; background: none; border: none; }
+        .sidebar {
+            position: fixed; top: 0; left: -280px; width: 280px; height: 100%;
+            background: #050505; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 1001; padding-top: 60px; border-right: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        .sidebar.active { left: 0; }
+        .sidebar a {
+            display: block; padding: 18px 25px; color: white; text-decoration: none;
+            font-weight: 600; font-size: 14px; letter-spacing: 1px;
+            border-bottom: 1px solid rgba(255,255,255,0.03); transition: 0.3s;
+        }
+        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; padding-left: 35px; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 999; backdrop-filter: blur(4px); }
+        
+        section { width: 100%; display: none; flex-direction: column; align-items: center; }
+        section.active { display: flex; animation: sectionFade 0.5s ease-out; }
+        @keyframes sectionFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* TESTI CARD & FORM */
+        .testi-container { width: 90%; max-width: 450px; margin-top: 80px; }
+        .form-testi { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); margin-bottom: 40px; }
+        .form-testi input, .form-testi textarea {
+            width: 100%; background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 15px; color: white; margin-bottom: 15px; font-family: inherit; box-sizing: border-box;
+        }
+        .star-rating { display: flex; gap: 8px; margin-bottom: 20px; justify-content: center; }
+        .star { font-size: 28px; color: #222; cursor: pointer; transition: 0.2s; }
+        .star.active { color: #facc15; text-shadow: 0 0 10px rgba(250, 204, 21, 0.4); }
+        .btn-submit {
+            width: 100%; background: linear-gradient(90deg, #0ea5e9, #1d4ed8); color: white;
+            border: none; padding: 15px; border-radius: 15px; font-weight: bold; cursor: pointer;
+            transition: 0.3s; letter-spacing: 1px;
+        }
+        .btn-submit:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(14, 165, 233, 0.4); }
+
+        .filters { display: flex; gap: 10px; overflow-x: auto; width: 100%; padding-bottom: 15px; margin-bottom: 20px; scrollbar-width: none; }
+        .filter-btn {
+            padding: 10px 20px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 25px; color: #888; font-size: 12px; white-space: nowrap; cursor: pointer; transition: 0.3s;
+        }
+        .filter-btn.active { background: #0ea5e9; color: white; border-color: #0ea5e9; box-shadow: 0 0 15px rgba(14, 165, 233, 0.3); }
+
+        .testi-card {
+            background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; width: 100%; box-sizing: border-box;
+        }
+        .testi-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .testi-name { font-weight: bold; color: #0ea5e9; font-size: 15px; }
+        .testi-date { font-size: 10px; color: #555; }
+        .testi-stars { color: #facc15; font-size: 12px; margin-bottom: 10px; }
+        .testi-text { font-size: 14px; line-height: 1.6; color: #bbb; }
+        .testi-footer { display: flex; align-items: center; gap: 15px; margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.03); padding-top: 15px; }
+        .like-btn { cursor: pointer; color: #666; font-size: 13px; transition: 0.3s; display: flex; align-items: center; gap: 5px; }
+        .like-btn:hover { color: #ef4444; }
     </style>
 </head>
 <body>
 
-    <div class="header-card">
-        <div class="profile-pic">
-            <img src="logo.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
+    <nav class="navbar">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+        <span style="margin-left: 15px; font-weight: 800; letter-spacing: 2px; font-size: 14px; color: #0ea5e9;">HANN 25</span>
+    </nav>
+
+    <div class="overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar">
+        <a href="#" onclick="showSection('home')">🏠 HOME</a>
+        <a href="#" onclick="showSection('testi')">⭐ TESTIMONI</a>
+        <a href="https://wa.me/6289603014462" target="_blank">💬 HUBUNGI SAYA</a>
+    </div>
+
+    <section id="home" class="active">
+        <div class="header-card">
+            <div class="profile-pic">
+                <img src="logo.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <h1>HANN 25</h1>
+            <div class="verified-badge">
+                <img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" alt="Verified Badge"> Verified 
+            </div>
         </div>
-        <h1>HANN 25</h1>
-        <div class="verified-badge">
-            <img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" alt="Verified Badge"> 
-            Verified 
+
+        <div class="container">
+            <div class="label-center">KONTAK</div>
+            <a href="https://wa.me/6289603014462" target="_blank" class="btn-link"><div class="btn-content"><span>💬</span> WA UTAMA</div><span class="arrow-right">➜</span></a>
+            <a href="https://wa.me/6287733274259" target="_blank" class="btn-link"><div class="btn-content"><span>💬</span> WA CADANGAN</div><span class="arrow-right">➜</span></a>
+            <a href="https://t.me/hanntwentyfive" target="_blank" class="btn-link"><div class="btn-content"><span>✈️</span> TELEGRAM</div><span class="arrow-right">➜</span></a>
+
+            <div class="label-center">SALURAN STOK/TESTI</div>
+            <a href="https://whatsapp.com/channel/0029Vb7ACqXHVvTkE98lu31L" target="_blank" class="btn-link"><div class="btn-content"><span>📢</span> SALURAN WA</div><span class="arrow-right">➜</span></a>
+            <a href="https://t.me/chutamahann25" target="_blank" class="btn-link"><div class="btn-content"><span>📢</span> SALURAN TELE</div><span class="arrow-right">➜</span></a>
+
+            <div class="label-center">GRUP JB ALLGAME</div>
+            <a href="https://chat.whatsapp.com/IvgsQyZHSUcAzRcWTEEIJF" target="_blank" class="btn-link"><div class="btn-content"><span>🎮</span> JB 1 TERBUKA</div><span class="arrow-right">➜</span></a>
+            <a href="https://chat.whatsapp.com/BA2PJF9pPPoLJrkOuIwbse" target="_blank" class="btn-link"><div class="btn-content"><span>🎮</span> JB 2 TERBUKA</div><span class="arrow-right">➜</span></a>
+            <a href="https://chat.whatsapp.com/Cn5SCo1xbP7IBDTYoDOXDM" target="_blank" class="btn-link"><div class="btn-content"><span>🎮</span> STOK RESS 1</div><span class="arrow-right">➜</span></a>
+
+            <div class="label-center">SOSIAL MEDIA</div>
+            <a href="https://youtube.com/@hann25jb" target="_blank" class="btn-link"><div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT"> YOUTUBE</div><span class="arrow-right">➜</span></a>
+            <a href="https://www.tiktok.com/@hann25jb" target="_blank" class="btn-link"><div class="btn-content"><img src="https://i.ibb.co.com/35h1DydR/20260117-114717.png" alt="TK"> TIKTOK</div><span class="arrow-right">➜</span></a>
+            <a href="https://instagram.com/hanntwentyfive" target="_blank" class="btn-link"><div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="IG"> INSTAGRAM</div><span class="arrow-right">➜</span></a>
         </div>
-    </div>
+    </section>
 
-    <div class="container">
-        <div class="label-center">KONTAK</div>
-        
-        <a href="https://wa.me/6289603014462" target="_blank" class="btn-link">
-            <div class="btn-content"><span>💬</span> WA UTAMA</div>
-            <span class="arrow-right">➜</span>
-        </a>
+    <section id="testi">
+        <div class="testi-container">
+            <div class="label-center">TESTIMONI PEMBELI</div>
+            <div class="form-testi">
+                <input type="text" id="t-name" placeholder="Nama Lengkap...">
+                <div class="star-rating" id="star-input">
+                    <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+                </div>
+                <textarea id="t-msg" rows="3" placeholder="Berikan ulasan transaksi lu..."></textarea>
+                <button class="btn-submit" onclick="sendTesti()">POSTING ULASAN</button>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" onclick="setF('new')">Terbaru</button>
+                <button class="filter-btn" onclick="setF('pop')">Terpopuler</button>
+                <button class="filter-btn" onclick="setF('s5')">⭐ 5</button>
+            </div>
+            <div id="testi-list"></div>
+        </div>
+    </section>
 
-        <a href="https://wa.me/6287733274259" target="_blank" class="btn-link">
-            <div class="btn-content"><span>💬</span> WA CADANGAN</div>
-            <span class="arrow-right">➜</span>
-        </a>
+    <div class="footer">COPYRIGHT © HANN 25</div>
 
-        <a href="https://t.me/hanntwentyfive" target="_blank" class="btn-link">
-            <div class="btn-content"><span>✈️</span> TELEGRAM</div>
-            <span class="arrow-right">➜</span>
-        </a>
+    <script>
+        // CONFIG FIREBASE
+        const firebaseConfig = {
+            apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
+            authDomain: "testimonihann25.firebaseapp.com",
+            projectId: "testimonihann25",
+            databaseURL: "https://testimonihann25-default-rtdb.firebaseio.com/",
+            storageBucket: "testimonihann25.firebasestorage.app",
+            messagingSenderId: "669862452536",
+            appId: "1:669862452536:web:ca3fe710b8321fc83d35cd"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.database();
 
-        <div class="label-center">SALURAN STOK/TESTI</div>
+        let rating = 0, filter = 'new';
 
-        <a href="https://whatsapp.com/channel/0029Vb7ACqXHVvTkE98lu31L" target="_blank" class="btn-link">
-            <div class="btn-content"><span>📢</span> SALURAN WA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://t.me/chutamahann25" target="_blank" class="btn-link">
-            <div class="btn-content"><span>📢</span> SALURAN TELE</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <div class="label-center">GRUP JB ALLGAME</div>
-
-        <a href="https://chat.whatsapp.com/IvgsQyZHSUcAzRcWTEEIJF" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> JB 1 TERBUKA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://chat.whatsapp.com/BA2PJF9pPPoLJrkOuIwbse" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> JB 2 TERBUKA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-        
-        <a href="https://chat.whatsapp.com/Cn5SCo1xbP7IBDTYoDOXDM" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> STOK RESS 1</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <div class="label-center">SOSIAL MEDIA</div>
-
-        <a href="https://youtube.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT"> YOUTUBE</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://www.tiktok.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://i.ibb.co.com/35h1DydR/20260117-114717.png" alt="TK"> TIKTOK</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://instagram.com/hanntwentyfive" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="IG"> INSTAGRAM</div>
-            <span class="arrow-right">➜</span>
-        </a>
-    </div>
-
-        <div class="footer">
-        COPYRIGHT © HANN 25
-    </div>
-
-
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('active');
+            document.querySelector('.overlay').style.display = document.querySelector('.sidebar').classList.contains('active') ? 'block' : 'none';
+        }
+        function showSection(id) {
+            document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            toggleSidebar(); window.scrollTo(0,0);
+        }
+        document.querySelectorAll('.star').forEach(s => {
+            s.onclick = function() {
+                rating = this.dataset.v;
+                document.querySelectorAll('.star').forEach(st => st.classList.toggle('active', st.dataset.v <= rating));
+            }
+        });
+        function sendTesti() {
+            const n = document.getElementById('t-name').value, m = document.getElementById('t-msg').value;
+            if(!n || !m || rating == 0) return alert("Lengkapi data bos!");
+            db.ref('testimonies').push().set({ name: n, message: m, rating: parseInt(rating), likes: 0, timestamp: Date.now() });
+            alert("Ulasan terkirim!"); location.reload();
+        }
+        function setF(t) { 
+            filter = t; 
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            load(); 
+        }
+        function load() {
+            db.ref('testimonies').on('value', snap => {
+                const list = document.getElementById('testi-list'); list.innerHTML = "";
+                let data = []; snap.forEach(c => { data.push({ id: c.key, ...c.val() }); });
+                if(filter === 'new') data.sort((a,b) => b.timestamp - a.timestamp);
+                if(filter === 'pop') data.sort((a,b) => b.likes - a.likes);
+                if(filter === 's5') data = data.filter(d => d.rating === 5);
+                data.forEach(t => {
+                    list.innerHTML += `<div class="testi-card">
+                        <div class="testi-header"><span class="testi-name">${t.name}</span><span class="testi-date">${new Date(t.timestamp).toLocaleDateString()}</span></div>
+                        <div class="testi-stars">${"★".repeat(t.rating)}</div>
+                        <p class="testi-text">${t.message}</p>
+                        <div class="testi-footer"><span class="like-btn" onclick="like('${t.id}',${t.likes})">❤️ ${t.likes} Like</span></div>
+                    </div>`;
+                });
+            });
+        }
+        function like(id, c) { db.ref('testimonies/' + id).update({ likes: c + 1 }); }
+        load();
+    </script>
 </body>
 </html>
