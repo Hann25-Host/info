@@ -15,24 +15,20 @@
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* Navbar & Sidebar Fix */
-                .navbar {
+        /* Navbar & Sidebar */
+        .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 2000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
             border-bottom: 1px solid rgba(14, 165, 233, 0.2); justify-content: space-between;
         }
         .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 2100; }
-        .burger span {
-            display: block; position: absolute; height: 3px; width: 100%;
-            background: #ffffff; border-radius: 9px; transition: .25s ease-in-out;
-        }
-        .burger span:nth-child(1) { top: 0px; }
-        .burger span:nth-child(2) { top: 8px; }
-        .burger span:nth-child(3) { top: 16px; }
+        .burger span { display: block; position: absolute; height: 3px; width: 100%; background: #ffffff; border-radius: 9px; transition: .25s ease-in-out; }
+        .burger span:nth-child(1) { top: 0px; } .burger span:nth-child(2) { top: 8px; } .burger span:nth-child(3) { top: 16px; }
         .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); background: #fff; }
         .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
         .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); background: #fff; }
+
         .sidebar {
             position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(20px);
@@ -40,31 +36,27 @@
             border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box;
         }
         .sidebar.active { left: 0; }
-        .sidebar a {
-            display: block; padding: 15px; color: white; text-decoration: none;
-            font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent;
-        }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent; }
         .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: none; z-index: 1040;
-        }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 1040; }
 
-        /* Stats Box */
+        /* Stats & Form Container */
         .stats-box { margin-top: 100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; display: flex; align-items: center; gap: 20px; }
-        
-        /* Form Testimony */
         .form-testi { background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; margin-top: 20px; }
+        
+        /* Camera Overlay Styles */
+        .p-wrapper { position: relative; width: 75px; height: 75px; margin: 0 auto 15px; cursor: pointer; }
+        .cam-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid #0ea5e9; font-size: 20px; transition: 0.3s; }
+        .p-wrapper:hover .cam-overlay { background: rgba(0, 0, 0, 0.2); }
+
         .s { font-size: 30px; cursor: pointer; color: rgba(255,255,255,0.15); transition: 0.2s; }
         input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; transition: 0.3s; }
         input:focus, textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 10px rgba(14, 165, 233, 0.2); }
         .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 15px; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
 
-        /* Filters */
+        /* Filters & Cards */
         .filters { width: 90%; max-width: 400px; display: flex; gap: 10px; margin: 20px 0; }
         select { background: #000; color: #fff; border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 10px; flex: 1; outline: none; }
-
-        /* Testimony List Card */
         .testi-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; width: 90%; max-width: 400px; margin-bottom: 15px; position: relative; animation: fadeInUp 0.5s ease forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         .tgl { font-size: 10px; color: #666; position: absolute; top: 15px; right: 15px; }
@@ -98,18 +90,25 @@
 
     <div class="form-testi" id="form-container">
         <div style="text-align:center; margin-bottom:15px;">
-            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="p-prev" style="width:65px; height:65px; border-radius:50%; border:2px solid #0ea5e9; cursor:pointer; object-fit: cover;" onclick="document.getElementById('f-in').click()">
-            <input type="file" id="f-in" style="display:none" accept="image/*" onchange="prevImg()">
+            <div class="p-wrapper" onclick="document.getElementById('f-in').click()">
+                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="p-prev" style="width:100%; height:100%; border-radius:50%; object-fit: cover; display: block;">
+                <div class="cam-overlay">📷</div>
+            </div>
+            <input type="file" id="f-in" style="display:none" accept="image/*" onchange="window.prevImg()">
         </div>
+        
         <input type="text" id="t-name" placeholder="Nama Anda">
+        
         <div id="star-box" style="display:flex; justify-content:center; gap:10px; margin-bottom:10px;">
             <span class="s" data-v="1">★</span><span class="s" data-v="2">★</span><span class="s" data-v="3">★</span><span class="s" data-v="4">★</span><span class="s" data-v="5">★</span>
         </div>
-        <textarea id="t-msg" placeholder="Tulis Ulasan"></textarea>
+        
+        <textarea id="t-msg" placeholder="Tulis Ulasan Anda..."></textarea>
+        
         <button class="btn-submit" onclick="window.kirim()">KIRIM ULASAN</button>
     </div>
 
-        <div class="filters">
+    <div class="filters">
         <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
         <select id="f-sort" onchange="window.renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
     </div>
@@ -120,11 +119,10 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-                const firebaseConfig = {
+        const firebaseConfig = {
             apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
             authDomain: "testimonihann25.firebaseapp.com",
             projectId: "testimonihann25",
-            // GANTI BARIS DI BAWAH INI:
             databaseURL: "https://testimonihann25-default-rtdb.asia-southeast1.firebasedatabase.app",
             storageBucket: "testimonihann25.firebasestorage.app",
             messagingSenderId: "669862452536",
@@ -135,6 +133,7 @@
         const db = getDatabase(app);
         let selRating = 0, pBase = "", allData = [];
 
+        // Check if user already submitted
         if(localStorage.getItem('sent_testi_hann25')) {
             const formContainer = document.getElementById('form-container');
             if (formContainer) {
@@ -150,9 +149,13 @@
         };
 
         window.prevImg = () => {
+            const file = document.getElementById('f-in').files[0];
             const reader = new FileReader();
-            reader.onloadend = () => { pBase = reader.result; document.getElementById('p-prev').src = reader.result; };
-            reader.readAsDataURL(document.getElementById('f-in').files[0]);
+            reader.onloadend = () => { 
+                pBase = reader.result; 
+                document.getElementById('p-prev').src = reader.result; 
+            };
+            if(file) reader.readAsDataURL(file);
         };
 
         document.querySelectorAll('.s').forEach(s => {
@@ -164,23 +167,20 @@
             };
         });
 
-                window.kirim = () => {
+        window.kirim = () => {
             const n = document.getElementById('t-name').value.trim();
             const m = document.getElementById('t-msg').value.trim();
             
-            // Validasi Input
             if(!n) return Swal.fire("Waduh!", "Nama Anda jangan kosong ya.", "warning");
             if(selRating == 0) return Swal.fire("Bintangnya?", "Kasih rating bintang dulu dong.", "warning");
             if(!m) return Swal.fire("Pesan Kosong", "Tulis ulasan singkat buat saya ya.", "warning");
 
-            // Tampilkan loading biar user gak pencet berkali-kali
             Swal.fire({
                 title: 'Sedang Mengirim...',
                 allowOutsideClick: false,
                 didOpen: () => { Swal.showLoading(); }
             });
 
-            // Kirim ke Firebase
             push(ref(db, 'testimonies'), { 
                 name: n, 
                 message: m, 
@@ -207,14 +207,12 @@
             });
         };
 
-
-                // LOAD DATA & STATS
         onValue(ref(db, 'testimonies'), (snap) => {
             allData = []; 
             if(snap.exists()){
                 snap.forEach(c => { allData.push(c.val()); });
                 updateStats();
-                window.renderTesti(); // Panggil dengan window. biar sinkron
+                window.renderTesti();
             }
         });
 
@@ -228,26 +226,18 @@
             
             document.getElementById('avg-num').innerText = avgFixed;
             document.getElementById('avg-pc').innerText = Math.round((puas/allData.length)*100) + "% puas";
-            
-            // Generate bintang berdasarkan pembulatan avg
             document.getElementById('avg-star').innerHTML = "⭐".repeat(Math.round(avgNum));
         }
 
-
-                // Pastikan fungsi ini bisa dipanggil dari mana saja
         window.renderTesti = () => {
             const list = document.getElementById('testi-list');
-            if(!list) return; // Proteksi agar tidak error
+            if(!list) return;
 
             const fStar = document.getElementById('f-star').value;
             const fSort = document.getElementById('f-sort').value;
             
             list.innerHTML = "";
-            
-            // Filter data
             let filtered = allData.filter(d => fStar === 'all' || d.rating == fStar);
-            
-            // Sort data
             filtered.sort((a,b) => fSort === 'new' ? b.ts - a.ts : a.ts - b.ts);
 
             if (filtered.length === 0) {
