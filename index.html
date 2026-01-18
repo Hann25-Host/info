@@ -12,8 +12,6 @@
             color: white; display: flex; flex-direction: column; align-items: center; 
             min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative; 
         }
-        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px; opacity: 0.1; z-index: -1; animation: starsMove 100s linear infinite; }
-        @keyframes starsMove { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
         .navbar {
@@ -31,29 +29,28 @@
         .burger.open span:nth-child(3) { top: 7px; transform: rotate(-45deg); }
 
         .sidebar {
-            position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
-            background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(20px);
-            transition: 0.4s ease; z-index: 1050; padding: 100px 20px;
-            border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box;
+            position: fixed; top: 0; left: -100%; width: 250px; height: 100%;
+            background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(20px);
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 2500; padding: 80px 20px;
+            border-right: 1px solid rgba(14, 165, 233, 0.2); box-sizing: border-box;
         }
         .sidebar.active { left: 0; }
-        .sidebar a {
-            display: block; padding: 15px; color: white; text-decoration: none;
-            font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent;
-            font-size: 14px;
+        
+        .sidebar a { 
+            display: block; padding: 15px; color: white; text-decoration: none; 
+            font-weight: 600; font-size: 14px; border-radius: 12px; margin-bottom: 10px; 
+            border: 1px solid transparent; transition: all 0.3s ease; 
         }
-        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
-        .overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.7); display: none; z-index: 1040;
-        }
-
-        .header-card, .container {
-            width: 92%;
-            max-width: 400px;
-            box-sizing: border-box;
+        .sidebar a:hover { 
+            background: rgba(14, 165, 233, 0.1); 
+            color: #0ea5e9; 
+            border-color: rgba(14, 165, 233, 0.2); 
+            transform: scale(1.05);
         }
 
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 2000; }
+
+        .header-card, .container { width: 92%; max-width: 400px; box-sizing: border-box; }
         .header-card { 
             margin-top: 85px; padding: 25px 20px; text-align: center; 
             background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); 
@@ -65,49 +62,33 @@
             width: 75px; height: 75px; background: #111; border-radius: 50%; 
             margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; 
             border: 2px solid rgba(14, 165, 233, 0.5); overflow: hidden; 
-            animation: glowPulse 3s infinite ease-in-out; 
+            animation: glowPulse 3s infinite ease-in-out;
         }
-        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); } 50% { box-shadow: 0 0 15px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; } }
+        @keyframes glowPulse { 
+            0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); } 
+            50% { box-shadow: 0 0 15px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; } 
+        }
         
         h1 { font-size: 24px; margin: 5px 0; letter-spacing: 1.5px; font-weight: 800; }
-        .verified-badge { display: flex; align-items: center; justify-content: center; gap: 4px; color: #0ea5e9; font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; }
+        .verified-badge { 
+            display: flex; align-items: center; justify-content: center; gap: 4px; color: #0ea5e9; 
+            font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; 
+            opacity: 0; transform: translateY(5px); animation: entryVerified 0.8s ease forwards 0.3s;
+        }
+        @keyframes entryVerified { to { opacity: 1; transform: translateY(0); } }
 
         .container { margin-top: 10px; display: flex; flex-direction: column; align-items: center; }
         .label-center { width: 100%; text-align: center; font-size: 11px; letter-spacing: 4px; margin: 30px 0 15px; color: rgba(255,255,255,0.6); font-weight: bold; text-transform: uppercase; }
         
-        /* Fix Tombol Tengah & Panjang */
         .btn-link { 
-            width: 100%;
-            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); 
-            border-radius: 18px; padding: 16px 20px; margin-bottom: 12px; 
-            display: flex; align-items: center; 
-            text-decoration: none; color: white; transition: 0.3s; 
-            box-sizing: border-box;
-            position: relative;
+            width: 100%; background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); 
+            border-radius: 18px; padding: 16px 24px; margin-bottom: 12px; display: flex; align-items: center; 
+            text-decoration: none; color: white; transition: 0.3s; box-sizing: border-box;
         }
         .btn-link:hover { background: rgba(255, 255, 255, 0.08); border-color: #0ea5e9; transform: translateY(-2px); }
-        
-        /* Konten tombol di tengah */
-        .btn-content { 
-            flex: 1;
-            display: flex; 
-            align-items: center; 
-            justify-content: center; /* Ini bikin teks ke tengah */
-            gap: 12px; 
-            font-weight: 600; 
-            font-size: 14px;
-            margin-left: 20px; /* Offset buat balance arrow di kanan */
-        }
-        .btn-content img, .btn-content span { width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; }
-        .btn-content img { object-fit: contain; }
-
-        .arrow-right { 
-            color: #0ea5e9; 
-            font-weight: bold; 
-            font-size: 16px; 
-            margin-left: auto;
-        }
-
+        .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 600; font-size: 14px; }
+        .btn-content img { width: 22px; height: 22px; object-fit: contain; }
+        .arrow-right { color: #0ea5e9; font-weight: bold; font-size: 16px; margin-left: auto; }
         .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
     </style>
 </head>
@@ -117,16 +98,13 @@
         <span style="font-weight: 900; letter-spacing: 1.5px; font-size: 14px;">DASHBOARD</span>
         <div style="width:25px;"></div>
     </nav>
-
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
     <div class="sidebar" id="sidebar"></div>
-
     <div class="header-card">
         <div class="profile-pic"><img src="logo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
         <h1>HANN 25</h1>
         <div class="verified-badge"><img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" style="width:14px;height:14px;"> Verified</div>
     </div>
-
     <div class="container" id="dynamic-content"></div>
     <div class="footer">COPYRIGHT © HANN 25</div>
 
@@ -164,11 +142,7 @@
                 html += `<div class="label-center">${cat.name}</div>`;
                 if (cat.buttons) Object.values(cat.buttons).forEach(b => {
                     const icon = b.icon.startsWith('http') ? `<img src="${b.icon}">` : `<span>${b.icon || '🔗'}</span>`;
-                    html += `
-                    <a href="${b.link}" target="_blank" class="btn-link">
-                        <div class="btn-content">${icon} ${b.label}</div>
-                        <span class="arrow-right">➜</span>
-                    </a>`;
+                    html += `<a href="${b.link}" target="_blank" class="btn-link"><div class="btn-content">${icon} ${b.label}</div><span class="arrow-right">➜</span></a>`;
                 });
             });
             container.innerHTML = html;
