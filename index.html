@@ -3,212 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HANN 25 - ADMIN</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>HANN 25 - INFO</title>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #050505; color: white; padding: 20px; min-height: 100vh; }
-        .header-area { text-align: center; margin-bottom: 30px; margin-top: 10px; }
-        .header-area h1 { letter-spacing: 2px; margin-bottom: 5px; font-size: 24px; }
-        .header-area p { color: #666; font-size: 12px; margin-top: 0; }
-        .card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 15px; margin-bottom: 20px; max-width: 600px; margin-inline: auto; }
-        h2 { color: #0ea5e9; font-size: 18px; border-bottom: 1px solid #333; padding-bottom: 10px; margin-top: 0; }
-        label { display: block; font-size: 12px; color: #666; margin-bottom: 5px; margin-top: 10px; }
-        input, select { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 8px; color: white; margin-bottom: 10px; box-sizing: border-box; outline: none; }
-        input:focus { border-color: #0ea5e9; }
-        .btn { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .btn-blue { background: #0ea5e9; color: white; }
-        .btn-blue:hover { background: #0284c7; }
-        .btn-red { background: #ff4757; color: white; padding: 5px 10px; font-size: 11px; width: auto; border-radius: 5px; border: none; cursor: pointer; }
-        .item { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 12px; margin-bottom: 8px; border-radius: 8px; border: 1px solid #333; }
-        #main-content { display: none; }
+        body { margin: 0; padding: 0; font-family: 'Inter', sans-serif; background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505); background-size: 400% 400%; animation: gradientBG 15s ease infinite; color: white; display: flex; flex-direction: column; align-items: center; min-height: 100vh; padding-bottom: 60px; overflow-x: hidden; position: relative; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: radial-gradient(white 1px, transparent 1px); background-size: 50px 50px; opacity: 0.1; z-index: -1; animation: starsMove 100s linear infinite; }
+        @keyframes starsMove { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .navbar { position: fixed; top: 0; left: 0; width: 100%; height: 70px; background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); z-index: 2000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box; border-bottom: 1px solid rgba(14, 165, 233, 0.2); justify-content: space-between; }
+        .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 2100; }
+        .burger span { display: block; position: absolute; height: 3px; width: 100%; background: #fff; border-radius: 9px; transition: .25s ease-in-out; }
+        .burger span:nth-child(1) { top: 0px; } .burger span:nth-child(2) { top: 8px; } .burger span:nth-child(3) { top: 16px; }
+        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); } .burger.open span:nth-child(2) { opacity: 0; left: -60px; } .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+        .sidebar { position: fixed; top: 0; left: -100%; width: 280px; height: 100%; background: rgba(5, 5, 5, 0.98); backdrop-filter: blur(20px); transition: 0.4s ease; z-index: 2050; padding: 100px 20px; border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box; }
+        .sidebar.active { left: 0; }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent; }
+        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); display: none; z-index: 2040; }
+        .header-card { width: 85%; max-width: 400px; margin-top: 100px; padding: 40px 20px; text-align: center; background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 40px; box-shadow: 0 20px 40px rgba(0,0,0,0.6); }
+        .profile-pic { width: 90px; height: 90px; background: #111; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; border: 2px solid rgba(14, 165, 233, 0.5); overflow: hidden; animation: glowPulse 3s infinite ease-in-out; }
+        @keyframes glowPulse { 0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); } 50% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; } }
+        h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
+        .verified-badge { display: flex; align-items: center; justify-content: center; gap: 3px; color: #0ea5e9; font-size: 11px; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; opacity: 0; animation: entry 1s ease-out 0.4s forwards; }
+        @keyframes entry { to { opacity: 1; transform: scale(1); } }
+        .container { width: 90%; max-width: 400px; margin-top: 20px; }
+        .label-center { text-align: center; font-size: 12px; letter-spacing: 6px; margin: 35px 0 15px; color: rgba(255,255,255,0.8); font-weight: bold; text-transform: uppercase; }
+        .btn-link { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 22px; padding: 18px 24px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; text-decoration: none; color: white; position: relative; transition: 0.4s; }
+        .btn-link:hover { background: rgba(255, 255, 255, 0.1); border-color: #0ea5e9; transform: translateY(-3px) scale(1.02); }
+        .btn-content { display: flex; align-items: center; gap: 15px; font-weight: 500; font-size: 15px; }
+        .btn-content img { width: 24px; height: 24px; object-fit: contain; }
+        .arrow-right { color: #0ea5e9; font-weight: bold; font-size: 18px; }
+        .footer { margin-top: 80px; margin-bottom: 30px; padding-top: 20px; font-size: 10px; color: rgba(255, 255, 255, 0.3); text-align: center; border-top: 1px solid rgba(255, 255, 255, 0.05); width: 80%; max-width: 300px; letter-spacing: 3px; }
     </style>
 </head>
 <body>
-    <div id="main-content">
-        <div class="header-area">
-            <h1>MANAGER DASHBOARD</h1>
-            <p>Update konten tanpa edit kode HTML</p>
-        </div>
-
-        <div class="card">
-            <h2>📑 1. Kelola Sidebar</h2>
-            <label>Icon Menu (Emoji)</label>
-            <input type="text" id="side-icon" placeholder="Contoh: 🏠">
-            <label>Nama Menu</label>
-            <input type="text" id="side-label" placeholder="Contoh: DASHBOARD">
-            <label>Link Tujuan</label>
-            <input type="text" id="side-link" placeholder="Contoh: /index.html">
-            <button class="btn btn-blue" onclick="window.addSidebar()">Tambah Menu Sidebar</button>
-            <div id="side-list" style="margin-top:20px;"></div>
-        </div>
-
-        <div class="card">
-            <h2>📂 2. Kelola Kategori</h2>
-            <label>Nama Kategori Baru</label>
-            <input type="text" id="cat-name" placeholder="Contoh: SOSIAL MEDIA">
-            <button class="btn btn-blue" onclick="window.addCategory()">Tambah Kategori</button>
-            <div id="cat-list" style="margin-top:20px;"></div>
-        </div>
-
-        <div class="card">
-            <h2>🔘 3. Tambah Tombol Baru</h2>
-            <label>Pilih Kategori</label>
-            <select class="cat-select-sync"></select>
-            <label>Icon (Emoji atau URL Gambar)</label>
-            <input type="text" id="btn-icon" placeholder="Emoji atau link gambar .png/.jpg">
-            <label>Nama Tombol</label>
-            <input type="text" id="btn-label" placeholder="Contoh: WHATSAPP">
-            <label>Link Tujuan</label>
-            <input type="text" id="btn-link" placeholder="https://wa.me/...">
-            <button class="btn btn-blue" onclick="window.addButton()">Simpan Tombol</button>
-        </div>
-
-        <div class="card">
-            <h2>🗑️ 4. Hapus Tombol</h2>
-            <label>Pilih Kategori untuk Lihat Daftar Tombol</label>
-            <select class="cat-select-sync" onchange="window.loadButtonsToManage(this.value)"></select>
-            <div id="manage-btn-list" style="margin-top:20px;"></div>
-        </div>
+    <nav class="navbar">
+        <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <span style="font-weight: 900; letter-spacing: 2px;">DASHBOARD</span>
+        <div style="width:30px;"></div>
+    </nav>
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+    <div class="sidebar" id="sidebar"></div>
+    <div class="header-card">
+        <div class="profile-pic"><img src="logo.jpg" style="width:100%;height:100%;object-fit:cover;"></div>
+        <h1>HANN 25</h1>
+        <div class="verified-badge"><img src="https://i.ibb.co.com/PzvcyRWS/20260117-174837.png" style="width:15px;height:15px;"> Verified</div>
     </div>
+    <div class="container" id="dynamic-content"></div>
+    <div class="footer">COPYRIGHT © HANN 25</div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, push, remove, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-        import { getRemoteConfig, getValue, fetchAndActivate } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-remote-config.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        const firebaseConfig = {
+        const config = {
             apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
             authDomain: "adminhann25.firebaseapp.com",
             projectId: "adminhann25",
-            databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app",
-            storageBucket: "adminhann25.firebasestorage.app",
-            messagingSenderId: "1020946488981",
-            appId: "1:1020946488981:web:9b2cf0902f5665e342c59c"
+            databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        const db = getDatabase(initializeApp(config));
+
+        window.toggleMenu = () => {
+            document.getElementById('burger').classList.toggle('open');
+            document.getElementById('sidebar').classList.toggle('active');
+            const ov = document.getElementById('overlay');
+            ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
         };
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
-        const remoteConfig = getRemoteConfig(app);
-
-        remoteConfig.settings.minimumFetchIntervalMillis = 0;
-
-        const checkAccess = async () => {
-            if (sessionStorage.getItem("__auth") === "true") {
-                document.getElementById("main-content").style.display = "block";
-                return;
-            }
-            try {
-                await fetchAndActivate(remoteConfig);
-                const passkeyBenar = getValue(remoteConfig, "admin_password").asString();
-                const { value: inputPw } = await Swal.fire({
-                    title: 'ADMIN ACCESS',
-                    input: 'password',
-                    inputLabel: 'Masukkan Password:',
-                    background: '#111',
-                    color: '#fff',
-                    confirmButtonColor: '#0ea5e9',
-                    allowOutsideClick: false,
-                    showLoaderOnConfirm: true,
-                    preConfirm: (val) => {
-                        return new Promise((resolve) => {
-                            setTimeout(() => {
-                                if (val === passkeyBenar) resolve(true);
-                                else {
-                                    Swal.showValidationMessage('Password Salah!');
-                                    resolve(false);
-                                }
-                            }, 500);
-                        });
-                    }
-                });
-                if (inputPw) {
-                    sessionStorage.setItem("__auth", "true");
-                    document.getElementById("main-content").style.display = "block";
-                }
-            } catch (err) {
-                console.error(err);
-            }
-        };
-
-        window.addSidebar = () => {
-            const ic = document.getElementById('side-icon').value.trim();
-            const lb = document.getElementById('side-label').value.trim();
-            const ln = document.getElementById('side-link').value.trim();
-            if(lb && ln) {
-                push(ref(db, 'dashboard/sidebar'), { icon: ic || '📍', label: lb, link: ln }).then(() => {
-                    document.getElementById('side-icon').value = "";
-                    document.getElementById('side-label').value = "";
-                    document.getElementById('side-link').value = "";
-                });
-            }
-        };
-
-        onValue(ref(db, 'dashboard/sidebar'), (s) => {
-            const list = document.getElementById('side-list');
-            list.innerHTML = "";
-            if(s.exists()){
-                s.forEach(child => {
-                    list.innerHTML += `<div class="item"><span>${child.val().icon} <b>${child.val().label}</b></span><button class="btn-red" onclick="window.delData('dashboard/sidebar/${child.key}')">Hapus</button></div>`;
-                });
-            }
-        });
-
-        window.addCategory = () => {
-            const n = document.getElementById('cat-name').value.trim();
-            if(n) push(ref(db, 'dashboard/categories'), { name: n.toUpperCase() }).then(() => { document.getElementById('cat-name').value = ""; });
-        };
-
-        onValue(ref(db, 'dashboard/categories'), (s) => {
-            const list = document.getElementById('cat-list');
-            const selects = document.querySelectorAll('.cat-select-sync');
-            list.innerHTML = "";
-            let options = '<option value="">-- Pilih Kategori --</option>';
-            if(s.exists()){
-                s.forEach(child => {
-                    list.innerHTML += `<div class="item"><span><b>${child.val().name}</b></span><button class="btn-red" onclick="window.delData('dashboard/categories/${child.key}')">Hapus</button></div>`;
-                    options += `<option value="${child.key}">${child.val().name}</option>`;
-                });
-            }
-            selects.forEach(sel => sel.innerHTML = options);
-        });
-
-        window.addButton = () => {
-            const cid = document.querySelector('select.cat-select-sync').value;
-            const ic = document.getElementById('btn-icon').value.trim();
-            const lb = document.getElementById('btn-label').value.trim();
-            const ln = document.getElementById('btn-link').value.trim();
-            if(cid && lb && ln) {
-                push(ref(db, `dashboard/categories/${cid}/buttons`), { 
-                    icon: ic || '🔗', label: lb, link: ln, ts: Date.now() 
-                }).then(() => {
-                    Swal.fire("Sip!", "Tombol Ditambah", "success");
-                    document.getElementById('btn-icon').value = "";
-                    document.getElementById('btn-label').value = "";
-                    document.getElementById('btn-link').value = "";
-                });
-            }
-        };
-
-        window.loadButtonsToManage = (cid) => {
-            const list = document.getElementById('manage-btn-list');
-            if(!cid) { list.innerHTML = ""; return; }
-            onValue(ref(db, `dashboard/categories/${cid}/buttons`), (s) => {
-                list.innerHTML = "";
-                if(s.exists()){
-                    s.forEach(child => {
-                        list.innerHTML += `<div class="item"><span>${child.val().icon} ${child.val().label}</span><button class="btn-red" onclick="window.delData('dashboard/categories/${cid}/buttons/${child.key}')">Hapus</button></div>`;
-                    });
-                }
+        onValue(ref(db, 'dashboard'), (snap) => {
+            const data = snap.val(); if (!data) return;
+            
+            // Render Sidebar
+            const side = document.getElementById('sidebar');
+            side.innerHTML = "";
+            if (data.sidebar) Object.values(data.sidebar).forEach(m => {
+                side.innerHTML += `<a href="${m.link}">${m.icon} ${m.label.toUpperCase()}</a>`;
             });
-        };
 
-        window.delData = (path) => {
-            Swal.fire({ title: "Hapus?", icon: "warning", showCancelButton: true, background: '#111', color: '#fff' }).then((r) => {
-                if (r.isConfirmed) remove(ref(db, path));
+            // Render Content
+            const container = document.getElementById('dynamic-content');
+            let html = "";
+            if (data.categories) Object.values(data.categories).forEach(cat => {
+                html += `<div class="label-center">${cat.name}</div>`;
+                if (cat.buttons) Object.values(cat.buttons).forEach(b => {
+                    const icon = b.icon.startsWith('http') ? `<img src="${b.icon}">` : `<span>${b.icon || '🔗'}</span>`;
+                    html += `<a href="${b.link}" target="_blank" class="btn-link"><div class="btn-content">${icon} ${b.label}</div><span class="arrow-right">➜</span></a>`;
+                });
             });
-        };
-
-        checkAccess();
+            container.innerHTML = html;
+        });
     </script>
 </body>
 </html>
