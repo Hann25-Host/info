@@ -1,1 +1,217 @@
 
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HANN 25 - TESTIMONI</title>
+    <style>
+        body {
+            margin: 0; padding: 0; font-family: 'Inter', sans-serif;
+            background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            color: white; display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; padding-bottom: 60px; overflow-x: hidden;
+        }
+        @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+        /* Navbar & Sidebar */
+        .navbar {
+            position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
+            z-index: 2000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2); justify-content: space-between;
+        }
+        .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 2100; }
+        .burger span { display: block; position: absolute; height: 3px; width: 100%; background: #0ea5e9; border-radius: 9px; transition: .25s; }
+        .burger span:nth-child(1) { top: 0; } .burger span:nth-child(2) { top: 8px; } .burger span:nth-child(3) { top: 16px; }
+        .burger.open span:nth-child(1) { transform: rotate(135deg); top: 8px; background: #fff; }
+        .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
+        .burger.open span:nth-child(3) { transform: rotate(-135deg); top: 8px; background: #fff; }
+
+        .sidebar { position: fixed; top: 0; left: -100%; width: 280px; height: 100%; background: rgba(5,5,5,0.95); backdrop-filter: blur(20px); transition: 0.4s; z-index: 2050; padding: 100px 20px; border-right: 1px solid rgba(14,165,233,0.3); box-sizing: border-box; }
+        .sidebar.active { left: 0; }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; font-weight: 600; margin-bottom: 10px; border-radius: 12px; }
+        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 2040; }
+
+        /* Stats Box */
+        .stats-box { margin-top: 100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; display: flex; align-items: center; gap: 20px; }
+        
+        /* Form Testimony */
+        .form-testi { background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; margin-top: 20px; }
+        .s { font-size: 30px; cursor: pointer; color: rgba(255,255,255,0.15); transition: 0.2s; }
+        input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus, textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 10px rgba(14, 165, 233, 0.2); }
+        .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 15px; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        .btn-submit:hover { background: #0284c7; transform: translateY(-2px); }
+
+        /* Filters */
+        .filters { width: 90%; max-width: 400px; display: flex; gap: 10px; margin: 20px 0; }
+        select { background: #000; color: #fff; border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 10px; flex: 1; outline: none; }
+
+        /* Testimony List */
+        .testi-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; width: 90%; max-width: 400px; margin-bottom: 15px; position: relative; }
+        .tgl { font-size: 10px; color: #666; position: absolute; top: 15px; right: 15px; }
+        .btn-like { cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; color: #888; }
+        .btn-like.liked { color: #0ea5e9; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+        <span style="font-weight: 900; letter-spacing: 2px; color: #0ea5e9;">TESTIMONI</span>
+        <div style="width:30px;"></div>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <div class="sidebar" id="sidebar">
+        <a href="/">🏠 DASHBOARD</a>
+        <a href="/testimoni">⭐ TESTIMONI</a>
+        <a href="https://wa.me/6289603014462">💬 HUBUNGI SAYA</a>
+    </div>
+
+    <div class="stats-box">
+        <div id="avg-num" style="font-size:40px; font-weight:900;">0.0</div>
+        <div>
+            <div id="avg-star" style="color:#facc15; font-size: 18px;">⭐⭐⭐⭐⭐</div>
+            <div id="avg-pc" style="font-size:12px; color:#aaa;">0% puas</div>
+        </div>
+    </div>
+
+    <div class="form-testi" id="form-container">
+        <div style="text-align:center; margin-bottom:15px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="p-prev" style="width:65px; height:65px; border-radius:50%; border:2px solid #0ea5e9; cursor:pointer; object-fit: cover;" onclick="document.getElementById('f-in').click()">
+            <p style="font-size: 10px; color: #aaa; margin-top: 5px;">Klik untuk ganti foto</p>
+            <input type="file" id="f-in" style="display:none" accept="image/*" onchange="prevImg()">
+        </div>
+        <input type="text" id="t-name" placeholder="Nama Kamu">
+        <div id="star-box" style="display:flex; justify-content:center; gap:10px; margin-bottom:10px;">
+            <span class="s" data-v="1">★</span>
+            <span class="s" data-v="2">★</span>
+            <span class="s" data-v="3">★</span>
+            <span class="s" data-v="4">★</span>
+            <span class="s" data-v="5">★</span>
+        </div>
+        <textarea id="t-msg" placeholder="Pesan testimoni..."></textarea>
+        <button class="btn-submit" id="btn-kirim" onclick="kirim()">KIRIM ULASAN</button>
+    </div>
+
+    <div class="filters">
+        <select id="f-star" onchange="renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option></select>
+        <select id="f-sort" onchange="renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
+    </div>
+
+    <div id="testi-list" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
+            authDomain: "testimonihann25.firebaseapp.com",
+            projectId: "testimonihann25",
+            databaseURL: "https://testimonihann25-default-rtdb.firebaseio.com/",
+            storageBucket: "testimonihann25.firebasestorage.app",
+            messagingSenderId: "669862452536",
+            appId: "1:669862452536:web:ca3fe710b8321fc83d35cd"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        let selRating = 0, pBase = "", allData = [];
+
+        // Hapus Form Jika Sudah Pernah Kirim
+        if(localStorage.getItem('sent_testi_hann25')) {
+            const formContainer = document.getElementById('form-container');
+            if (formContainer) {
+                formContainer.innerHTML = `<div style="text-align:center; padding:10px; color:#0ea5e9; font-weight:bold; font-size:13px;">✅ Terimakasih! Ulasan kamu sudah terdaftar.</div>`;
+                formContainer.style.background = "transparent";
+                formContainer.style.border = "none";
+            }
+        }
+
+        window.toggleMenu = () => {
+            document.getElementById('burger').classList.toggle('open');
+            document.getElementById('sidebar').classList.toggle('active');
+            const ov = document.getElementById('overlay');
+            ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
+        };
+
+        window.prevImg = () => {
+            const file = document.getElementById('f-in').files[0];
+            const reader = new FileReader();
+            reader.onloadend = () => { pBase = reader.result; document.getElementById('p-prev').src = reader.result; };
+            if(file) reader.readAsDataURL(file);
+        };
+
+        document.querySelectorAll('.s').forEach(s => {
+            s.onclick = () => {
+                selRating = s.dataset.v;
+                document.querySelectorAll('.s').forEach(t => {
+                    t.style.color = t.dataset.v <= selRating ? "#facc15" : "rgba(255,255,255,0.15)";
+                    t.style.textShadow = t.dataset.v <= selRating ? "0 0 15px rgba(250, 204, 21, 0.6)" : "none";
+                });
+            };
+        });
+
+        window.kirim = () => {
+            const n = document.getElementById('t-name').value, m = document.getElementById('t-msg').value;
+            if(!n || !m || selRating == 0) return alert("Lengkapi Nama, Rating, dan Pesan!");
+            push(ref(db, 'testimonies'), { 
+                name: n, message: m, rating: parseInt(selRating), 
+                photo: pBase || "default", 
+                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), 
+                ts: Date.now() 
+            }).then(() => { 
+                localStorage.setItem('sent_testi_hann25', 'true'); 
+                location.reload(); 
+            });
+        };
+
+        onValue(ref(db, 'testimonies'), (snap) => {
+            allData = []; snap.forEach(c => { allData.push(c.val()); });
+            updateStats();
+            renderTesti();
+        });
+
+        function updateStats() {
+            if(allData.length === 0) return;
+            let total = 0, puas = 0;
+            allData.forEach(d => { total += d.rating; if(d.rating >= 4) puas++; });
+            const avg = (total / allData.length).toFixed(1);
+            document.getElementById('avg-num').innerText = avg;
+            document.getElementById('avg-pc').innerText = Math.round((puas/allData.length)*100) + "% puas";
+            document.getElementById('avg-star').innerHTML = "⭐".repeat(Math.round(avg));
+        }
+
+        window.renderTesti = () => {
+            const list = document.getElementById('testi-list');
+            const fStar = document.getElementById('f-star').value;
+            const fSort = document.getElementById('f-sort').value;
+            list.innerHTML = "";
+            let filtered = allData.filter(d => fStar === 'all' || d.rating == fStar);
+            filtered.sort((a,b) => fSort === 'new' ? b.ts - a.ts : a.ts - b.ts);
+            filtered.forEach(t => {
+                const img = t.photo === 'default' ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : t.photo;
+                list.innerHTML += `
+                <div class="testi-card">
+                    <span class="tgl">${t.date}</span>
+                    <div style="display:flex;gap:12px;align-items:center;">
+                        <img src="${img}" style="width:40px;height:40px;border-radius:50%;border:1px solid #0ea5e9;object-fit:cover;">
+                        <div>
+                            <div style="font-weight:bold;color:#0ea5e9;font-size:14px;">${t.name}</div>
+                            <div style="color:#facc15;font-size:10px;">${"★".repeat(t.rating)}</div>
+                        </div>
+                    </div>
+                    <p style="font-size:13px;margin:10px 0;line-height:1.5;color:rgba(255,255,255,0.9);">${t.message}</p>
+                    <div class="btn-like" onclick="this.classList.toggle('liked')">👍 Suka</div>
+                </div>`;
+            });
+        };
+    </script>
+</body>
+</html>
