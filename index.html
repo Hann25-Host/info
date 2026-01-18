@@ -267,74 +267,69 @@
         </div>
     </div>
 
-    <div class="container">
-        <div class="label-center">KONTAK</div>
-        
-        <a href="https://wa.me/6289603014462" target="_blank" class="btn-link">
-            <div class="btn-content"><span>💬</span> WA UTAMA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://wa.me/6287733274259" target="_blank" class="btn-link">
-            <div class="btn-content"><span>💬</span> WA CADANGAN</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://t.me/hanntwentyfive" target="_blank" class="btn-link">
-            <div class="btn-content"><span>✈️</span> TELEGRAM</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <div class="label-center">SALURAN STOK/TESTI</div>
-
-        <a href="https://whatsapp.com/channel/0029Vb7ACqXHVvTkE98lu31L" target="_blank" class="btn-link">
-            <div class="btn-content"><span>📢</span> SALURAN WA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://t.me/chutamahann25" target="_blank" class="btn-link">
-            <div class="btn-content"><span>📢</span> SALURAN TELE</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <div class="label-center">GRUP JB ALLGAME</div>
-
-        <a href="https://chat.whatsapp.com/IvgsQyZHSUcAzRcWTEEIJF" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> JB 1 TERBUKA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://chat.whatsapp.com/BA2PJF9pPPoLJrkOuIwbse" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> JB 2 TERBUKA</div>
-            <span class="arrow-right">➜</span>
-        </a>
-        
-        <a href="https://chat.whatsapp.com/Cn5SCo1xbP7IBDTYoDOXDM" target="_blank" class="btn-link">
-            <div class="btn-content"><span>🎮</span> STOK RESS 1</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <div class="label-center">SOSIAL MEDIA</div>
-
-        <a href="https://youtube.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/e/ef/Youtube_logo.png" alt="YT"> YOUTUBE</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://www.tiktok.com/@hann25jb" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://i.ibb.co.com/35h1DydR/20260117-114717.png" alt="TK"> TIKTOK</div>
-            <span class="arrow-right">➜</span>
-        </a>
-
-        <a href="https://instagram.com/hanntwentyfive" target="_blank" class="btn-link">
-            <div class="btn-content"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Instagram_icon.png/1024px-Instagram_icon.png" alt="IG"> INSTAGRAM</div>
-            <span class="arrow-right">➜</span>
-        </a>
-    </div>
+    <div class="container" id="dynamic-content">
+    <div style="text-align:center; padding:50px; color:rgba(255,255,255,0.2);">Memuat...</div>
+</div>
 
         <div class="footer">
         COPYRIGHT © HANN 25
     </div>
-    
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+    // PAKAI CONFIG PROJECT ADMINHANN25
+    const firebaseConfig = {
+        apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
+        authDomain: "adminhann25.firebaseapp.com",
+        projectId: "adminhann25",
+        databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app",
+        storageBucket: "adminhann25.firebasestorage.app",
+        messagingSenderId: "1020946488981",
+        appId: "1:1020946488981:web:9b2cf0902f5665e342c59c"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+    const container = document.getElementById('dynamic-content');
+
+    // AMBIL DATA DARI FIREBASE
+    onValue(ref(db, 'dashboard/categories'), (snap) => {
+        if (snap.exists()) {
+            let htmlContent = "";
+            const categories = snap.val();
+
+            Object.keys(categories).forEach(catId => {
+                const cat = categories[catId];
+                
+                // 1. Render Nama Kategori (Label Center)
+                htmlContent += `<div class="label-center">${cat.name}</div>`;
+                
+                // 2. Render Tombol di dalamnya
+                if (cat.buttons) {
+                    Object.keys(cat.buttons).forEach(btnId => {
+                        const btn = cat.buttons[btnId];
+                        
+                        // Logika Icon (Cek apakah link gambar atau emoji)
+                        const iconHtml = btn.icon.startsWith('http') 
+                            ? `<img src="${btn.icon}" alt="icon">` 
+                            : `<span>${btn.icon || '🔗'}</span>`;
+
+                        htmlContent += `
+                            <a href="${btn.link}" target="_blank" class="btn-link">
+                                <div class="btn-content">
+                                    ${iconHtml} ${btn.label}
+                                </div>
+                                <span class="arrow-right">➜</span>
+                            </a>`;
+                    });
+                }
+            });
+            container.innerHTML = htmlContent;
+        } else {
+            container.innerHTML = "<p style='text-align:center; color:#444; margin-top:50px;'>Belum ada menu di Dashboard.</p>";
+        }
+    });
+</script>
 </body>
 </html>
