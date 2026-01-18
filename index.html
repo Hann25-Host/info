@@ -14,6 +14,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        html {
+            background: #000;
+            overflow-y: hidden; 
+        }
+
         body { 
             margin: 0; padding: 0; font-family: 'Inter', sans-serif; 
             background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505); 
@@ -24,10 +29,14 @@
 
         .main-wrapper {
             display: flex; flex-direction: column; align-items: center;
-            width: 100%; padding-bottom: 60px;
-            animation: pageFade 1.2s ease forwards;
+            width: 100%; padding-top: 0px; padding-bottom: 60px;
+            animation: pageFade 1.2s ease forwards, unlockScroll 0s forwards 1.2s;
         }
-        
+
+        @keyframes unlockScroll {
+            to { overflow-y: visible; }
+        }
+
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         
         .navbar {
@@ -92,9 +101,8 @@
         .verified-badge { 
             display: flex; align-items: center; justify-content: center; gap: 4px; color: #0ea5e9; 
             font-size: 10px; font-weight: bold; letter-spacing: 1.5px; text-transform: uppercase; 
-            opacity: 0; transform: translateY(5px); animation: entryVerified 0.8s ease forwards 0.6s;
+            opacity: 0; transform: translateY(5px); animation: itemFadeUp 0.8s ease forwards 0.6s;
         }
-        @keyframes entryVerified { to { opacity: 1; transform: translateY(0); } }
 
         .container { 
             width: 92%; max-width: 400px; box-sizing: border-box;
@@ -117,7 +125,7 @@
         .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
     </style>
 </head>
-<body>
+<body id="main-body">
     <nav class="navbar">
         <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
         <span style="font-weight: 900; letter-spacing: 1.5px; font-size: 14px;">DASHBOARD</span>
@@ -174,6 +182,10 @@
                 });
             });
             container.innerHTML = html;
+            
+            setTimeout(() => {
+                document.documentElement.style.overflowY = "visible";
+            }, 1200);
         });
     </script>
 </body>
