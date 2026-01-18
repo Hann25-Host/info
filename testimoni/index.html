@@ -15,7 +15,6 @@
         }
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-        /* Navbar & Sidebar */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
@@ -25,9 +24,9 @@
         .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 2100; }
         .burger span { display: block; position: absolute; height: 3px; width: 100%; background: #ffffff; border-radius: 9px; transition: .25s ease-in-out; }
         .burger span:nth-child(1) { top: 0px; } .burger span:nth-child(2) { top: 8px; } .burger span:nth-child(3) { top: 16px; }
-        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); background: #fff; }
+        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
         .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
-        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); background: #fff; }
+        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
 
         .sidebar {
             position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
@@ -36,39 +35,43 @@
             border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box;
         }
         .sidebar.active { left: 0; }
-        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent; }
-        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
+        .sidebar a { display: block; padding: 15px; color: white; text-decoration: none; font-weight: 600; border-radius: 12px; margin-bottom: 10px; }
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 1040; }
 
-        /* Stats & Form Container */
         .stats-box { margin-top: 100px; background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; display: flex; align-items: center; gap: 20px; }
         .form-testi { background: rgba(255,255,255,0.03); border: 1px solid rgba(14, 165, 233, 0.3); border-radius: 20px; padding: 20px; width: 90%; max-width: 400px; margin-top: 20px; }
         
-        /* Camera Overlay Styles */
-        .p-wrapper { position: relative; width: 75px; height: 75px; margin: 0 auto 15px; cursor: pointer; }
-        .cam-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.4); display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 2px solid #0ea5e9; font-size: 20px; transition: 0.3s; }
-        .p-wrapper:hover .cam-overlay { background: rgba(0, 0, 0, 0.2); }
+        /* Avatar & Photo Picker System */
+        .profile-container { position: relative; width: 85px; height: 85px; margin: 0 auto 10px; }
+        .p-prev-img { width: 100%; height: 100%; border-radius: 50%; border: 2px solid #0ea5e9; object-fit: cover; background: #111; }
+        .avatar-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; pointer-events: none; }
+        .avatar-overlay img { width: 60%; height: 60%; opacity: 0.5; }
+        .btn-pilih-foto { background: rgba(14, 165, 233, 0.1); border: 1px solid #0ea5e9; color: #0ea5e9; padding: 8px 16px; border-radius: 10px; font-size: 12px; cursor: pointer; font-weight: bold; transition: 0.3s; margin-bottom: 15px; }
+        .btn-pilih-foto:hover { background: #0ea5e9; color: white; }
 
         .s { font-size: 30px; cursor: pointer; color: rgba(255,255,255,0.15); transition: 0.2s; }
-        input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus, textarea:focus { border-color: #0ea5e9; box-shadow: 0 0 10px rgba(14, 165, 233, 0.2); }
-        .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 15px; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; }
+        input, textarea { width: 100%; padding: 12px; background: #000; border: 1px solid #333; border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; }
+        .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 15px; border-radius: 12px; color: #fff; font-weight: bold; cursor: pointer; margin-top: 10px; }
 
-        /* Filters & Cards */
         .filters { width: 90%; max-width: 400px; display: flex; gap: 10px; margin: 20px 0; }
         select { background: #000; color: #fff; border: 1px solid rgba(14, 165, 233, 0.2); padding: 10px; border-radius: 10px; flex: 1; outline: none; }
         .testi-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; width: 90%; max-width: 400px; margin-bottom: 15px; position: relative; animation: fadeInUp 0.5s ease forwards; }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.5); transition: 0.3s; margin-top: 10px; border: none; background: none; padding: 0; outline: none; }
+        .btn-love svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; transition: 0.2s; }
+        .btn-love.liked { color: #ff4757; }
+        .btn-love.liked svg { fill: #ff4757; stroke: #ff4757; animation: heartBeat 0.4s ease-out; }
+        
+        @keyframes heartBeat { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
         .tgl { font-size: 10px; color: #666; position: absolute; top: 15px; right: 15px; }
-        .btn-like { cursor: pointer; font-size: 12px; display: inline-flex; align-items: center; gap: 5px; margin-top: 10px; color: #888; }
-        .btn-like.liked { color: #0ea5e9; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <nav class="navbar">
         <div class="burger" id="burger" onclick="toggleMenu()"><span></span><span></span><span></span></div>
-        <span style="font-weight: 900; letter-spacing: 2px; color: #ffffff;">TESTIMONI</span>
+        <span style="font-weight: 900; letter-spacing: 2px;">TESTIMONI</span>
         <div style="width:30px;"></div>
     </nav>
 
@@ -89,22 +92,22 @@
     </div>
 
     <div class="form-testi" id="form-container">
-        <div style="text-align:center; margin-bottom:15px;">
-            <div class="p-wrapper" onclick="document.getElementById('f-in').click()">
-                <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png" id="p-prev" style="width:100%; height:100%; border-radius:50%; object-fit: cover; display: block;">
-                <div class="cam-overlay">📷</div>
+        <div style="text-align:center;">
+            <div class="profile-container">
+                <img src="" id="p-prev" class="p-prev-img" style="display:none;">
+                <div class="avatar-overlay" id="av-ov">
+                    <img src="https://i.ibb.co.com/HDj6gNdG/user-1.png">
+                </div>
             </div>
+            <button class="btn-pilih-foto" onclick="document.getElementById('f-in').click()">Pilih Foto Profil</button>
             <input type="file" id="f-in" style="display:none" accept="image/*" onchange="window.prevImg()">
         </div>
         
         <input type="text" id="t-name" placeholder="Nama Anda">
-        
         <div id="star-box" style="display:flex; justify-content:center; gap:10px; margin-bottom:10px;">
             <span class="s" data-v="1">★</span><span class="s" data-v="2">★</span><span class="s" data-v="3">★</span><span class="s" data-v="4">★</span><span class="s" data-v="5">★</span>
         </div>
-        
-        <textarea id="t-msg" placeholder="Tulis Ulasan Anda..."></textarea>
-        
+        <textarea id="t-msg" placeholder="Tulis Ulasan Anda"></textarea>
         <button class="btn-submit" onclick="window.kirim()">KIRIM ULASAN</button>
     </div>
 
@@ -117,7 +120,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
@@ -133,14 +136,6 @@
         const db = getDatabase(app);
         let selRating = 0, pBase = "", allData = [];
 
-        // Check if user already submitted
-        if(localStorage.getItem('sent_testi_hann25')) {
-            const formContainer = document.getElementById('form-container');
-            if (formContainer) {
-                formContainer.innerHTML = `<div style="text-align:center; padding:10px; color:#0ea5e9; font-weight:bold;">✅ Ulasan kamu sudah terdaftar.</div>`;
-            }
-        }
-
         window.toggleMenu = () => {
             document.getElementById('burger').classList.toggle('open');
             document.getElementById('sidebar').classList.toggle('active');
@@ -154,6 +149,8 @@
             reader.onloadend = () => { 
                 pBase = reader.result; 
                 document.getElementById('p-prev').src = reader.result; 
+                document.getElementById('p-prev').style.display = 'block';
+                document.getElementById('av-ov').style.display = 'none';
             };
             if(file) reader.readAsDataURL(file);
         };
@@ -161,56 +158,35 @@
         document.querySelectorAll('.s').forEach(s => {
             s.onclick = () => {
                 selRating = s.dataset.v;
-                document.querySelectorAll('.s').forEach(t => {
-                    t.style.color = t.dataset.v <= selRating ? "#facc15" : "rgba(255,255,255,0.15)";
-                });
+                document.querySelectorAll('.s').forEach(t => t.style.color = t.dataset.v <= selRating ? "#facc15" : "rgba(255,255,255,0.15)");
             };
         });
 
         window.kirim = () => {
-            const n = document.getElementById('t-name').value.trim();
-            const m = document.getElementById('t-msg').value.trim();
-            
-            if(!n) return Swal.fire("Waduh!", "Nama Anda jangan kosong ya.", "warning");
-            if(selRating == 0) return Swal.fire("Bintangnya?", "Kasih rating bintang dulu dong.", "warning");
-            if(!m) return Swal.fire("Pesan Kosong", "Tulis ulasan singkat buat saya ya.", "warning");
-
-            Swal.fire({
-                title: 'Sedang Mengirim...',
-                allowOutsideClick: false,
-                didOpen: () => { Swal.showLoading(); }
-            });
-
+            const n = document.getElementById('t-name').value.trim(), m = document.getElementById('t-msg').value.trim();
+            if(!n || !m || selRating == 0) return Swal.fire("Waduh!", "Isi semua data dulu ya!", "warning");
+            Swal.fire({ title: 'Mengirim...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
             push(ref(db, 'testimonies'), { 
-                name: n, 
-                message: m, 
-                rating: parseInt(selRating), 
-                photo: pBase || "default", 
-                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), 
-                ts: Date.now() 
-            })
-            .then(() => { 
-                localStorage.setItem('sent_testi_hann25', 'true');
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Berhasil!',
-                    text: 'Ulasan Anda sudah terdaftar. Terima kasih!',
-                    timer: 2000,
-                    showConfirmButton: false
-                }).then(() => {
-                    location.reload(); 
-                });
-            })
-            .catch((error) => {
-                console.error(error);
-                Swal.fire("Gagal", "Terjadi gangguan koneksi. Coba lagi ya.", "error");
+                name: n, message: m, rating: parseInt(selRating), photo: pBase || "default", 
+                likes: 0, date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), ts: Date.now() 
+            }).then(() => { 
+                Swal.fire({ icon: 'success', title: 'Berhasil!', timer: 1500, showConfirmButton: false }).then(() => location.reload());
+            });
+        };
+
+        window.handleLike = (id) => {
+            if(localStorage.getItem('liked_' + id)) return;
+            const likeRef = ref(db, `testimonies/${id}/likes`);
+            runTransaction(likeRef, (curr) => (curr || 0) + 1).then(() => {
+                localStorage.setItem('liked_' + id, 'true');
+                window.renderTesti();
             });
         };
 
         onValue(ref(db, 'testimonies'), (snap) => {
             allData = []; 
             if(snap.exists()){
-                snap.forEach(c => { allData.push(c.val()); });
+                snap.forEach(c => { let it = c.val(); it.id = c.key; allData.push(it); });
                 updateStats();
                 window.renderTesti();
             }
@@ -220,33 +196,20 @@
             if(allData.length === 0) return;
             let total = 0, puas = 0;
             allData.forEach(d => { total += d.rating; if(d.rating >= 4) puas++; });
-            
-            const avgNum = total / allData.length;
-            const avgFixed = avgNum.toFixed(1);
-            
-            document.getElementById('avg-num').innerText = avgFixed;
+            const avg = (total / allData.length).toFixed(1);
+            document.getElementById('avg-num').innerText = avg;
             document.getElementById('avg-pc').innerText = Math.round((puas/allData.length)*100) + "% puas";
-            document.getElementById('avg-star').innerHTML = "⭐".repeat(Math.round(avgNum));
+            document.getElementById('avg-star').innerHTML = "⭐".repeat(Math.round(avg));
         }
 
         window.renderTesti = () => {
-            const list = document.getElementById('testi-list');
-            if(!list) return;
-
-            const fStar = document.getElementById('f-star').value;
-            const fSort = document.getElementById('f-sort').value;
-            
+            const list = document.getElementById('testi-list'), fStar = document.getElementById('f-star').value, fSort = document.getElementById('f-sort').value;
             list.innerHTML = "";
             let filtered = allData.filter(d => fStar === 'all' || d.rating == fStar);
             filtered.sort((a,b) => fSort === 'new' ? b.ts - a.ts : a.ts - b.ts);
-
-            if (filtered.length === 0) {
-                list.innerHTML = `<p style="color:#666; font-size:13px; margin-top:30px;">Belum ada ulasan untuk filter ini.</p>`;
-                return;
-            }
-
             filtered.forEach(t => {
-                const img = (t.photo === 'default' || !t.photo) ? 'https://cdn-icons-png.flaticon.com/512/149/149071.png' : t.photo;
+                const liked = localStorage.getItem('liked_' + t.id);
+                const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/HDj6gNdG/user-1.png' : t.photo;
                 list.innerHTML += `
                 <div class="testi-card">
                     <span class="tgl">${t.date}</span>
@@ -258,7 +221,10 @@
                         </div>
                     </div>
                     <p style="font-size:13px;margin:10px 0;line-height:1.5;color:rgba(255,255,255,0.9);">${t.message}</p>
-                    <div class="btn-like" onclick="this.classList.toggle('liked')">👍 Suka</div>
+                    <button class="btn-love ${liked ? 'liked' : ''}" onclick="window.handleLike('${t.id}')">
+                        <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                        <span>${t.likes || 0}</span>
+                    </button>
                 </div>`;
             });
         };
