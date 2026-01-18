@@ -6,13 +6,20 @@
     <title>HANN 25 - TESTIMONI</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
+        /* Animasi Muncul Halus */
+        @keyframes pageFade {
+            from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
         body {
             margin: 0; padding: 0; font-family: 'Inter', sans-serif;
             background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite, pageFade 1.2s ease forwards;
             color: white; display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; padding-bottom: 60px; overflow-x: hidden;
         }
+        
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
         .navbar {
@@ -53,19 +60,23 @@
 
         .stats-box, .form-testi, .testi-card, .filters {
             width: 92%; max-width: 400px; box-sizing: border-box; margin-left: auto; margin-right: auto;
+            opacity: 0; transform: translateY(20px);
+            animation: itemFadeUp 0.6s ease forwards;
         }
 
-        .stats-box { 
-            margin-top: 85px; background: rgba(255,255,255,0.02); 
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; 
-            padding: 20px; display: flex; align-items: center; gap: 20px;
-        }
+        /* Stats box muncul duluan */
+        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation-delay: 0.4s; }
         
-        .form-testi { 
-            background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); 
-            border-radius: 20px; padding: 20px; margin: 15px auto;
-        }
+        /* Form muncul kedua */
+        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation-delay: 0.6s; }
         
+        /* Filter muncul ketiga */
+        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; animation-delay: 0.8s; }
+
+        @keyframes itemFadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .profile-container { 
             position: relative; width: 80px; height: 80px; margin: 0 auto 5px; 
             border-radius: 50%; border: 2px solid #0ea5e9; overflow: hidden; 
@@ -86,12 +97,12 @@
         input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; }
         .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 14px; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; margin-top: 5px; font-size: 14px; text-transform: uppercase; }
 
-        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; }
         select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; }
         
         .testi-card { 
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
             border-radius: 15px; padding: 15px; margin-bottom: 12px; position: relative;
+            /* Animasi card diatur via JS */
         }
 
         .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; }
@@ -250,11 +261,11 @@
             list.innerHTML = "";
             let filtered = allData.filter(d => fStar === 'all' || d.rating == fStar);
             filtered.sort((a,b) => fSort === 'new' ? b.ts - a.ts : a.ts - b.ts);
-            filtered.forEach(t => {
+            filtered.forEach((t, idx) => {
                 const liked = localStorage.getItem('liked_' + t.id);
                 const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/pBn06NLp/user.png' : t.photo;
                 list.innerHTML += `
-                <div class="testi-card">
+                <div class="testi-card" style="animation-delay: ${1 + (idx * 0.1)}s">
                     <span class="tgl">${t.date}</span>
                     <div style="display:flex;gap:10px;align-items:center;">
                         <img src="${img}" style="width:35px;height:35px;border-radius:50%;border:1px solid #0ea5e9;object-fit:cover;">
