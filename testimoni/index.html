@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANN 25 - TESTIMONI</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
             margin: 0; padding: 0; font-family: 'Inter', sans-serif;
@@ -105,12 +106,12 @@
             <span class="s" data-v="1">★</span><span class="s" data-v="2">★</span><span class="s" data-v="3">★</span><span class="s" data-v="4">★</span><span class="s" data-v="5">★</span>
         </div>
         <textarea id="t-msg" placeholder="Tulis Ulasan Anda..."></textarea>
-        <button class="btn-submit" onclick="kirim()">KIRIM ULASAN</button>
+        <button class="btn-submit" onclick="window.kirim()">KIRIM ULASAN</button>
     </div>
 
-    <div class="filters">
-        <select id="f-star" onchange="renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
-        <select id="f-sort" onchange="renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
+        <div class="filters">
+        <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
+        <select id="f-sort" onchange="window.renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
     </div>
 
     <div id="testi-list" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
@@ -162,14 +163,49 @@
             };
         });
 
-        window.kirim = () => {
-            const n = document.getElementById('t-name').value, m = document.getElementById('t-msg').value;
-            if(!n || !m || selRating == 0) return alert("Lengkapi Nama, Rating, dan Ulasan!");
+                window.kirim = () => {
+            const n = document.getElementById('t-name').value.trim();
+            const m = document.getElementById('t-msg').value.trim();
+            
+            // Validasi Input
+            if(!n) return Swal.fire("Waduh!", "Nama Anda jangan kosong ya.", "warning");
+            if(selRating == 0) return Swal.fire("Bintangnya?", "Kasih rating bintang dulu dong.", "warning");
+            if(!m) return Swal.fire("Pesan Kosong", "Tulis ulasan singkat buat saya ya.", "warning");
+
+            // Tampilkan loading biar user gak pencet berkali-kali
+            Swal.fire({
+                title: 'Sedang Mengirim...',
+                allowOutsideClick: false,
+                didOpen: () => { Swal.showLoading(); }
+            });
+
+            // Kirim ke Firebase
             push(ref(db, 'testimonies'), { 
-                name: n, message: m, rating: parseInt(selRating), photo: pBase || "default", 
-                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), ts: Date.now() 
-            }).then(() => { localStorage.setItem('sent_testi_hann25', 'true'); location.reload(); });
+                name: n, 
+                message: m, 
+                rating: parseInt(selRating), 
+                photo: pBase || "default", 
+                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), 
+                ts: Date.now() 
+            })
+            .then(() => { 
+                localStorage.setItem('sent_testi_hann25', 'true');
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Berhasil!',
+                    text: 'Ulasan Anda sudah terdaftar. Terima kasih!',
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    location.reload(); 
+                });
+            })
+            .catch((error) => {
+                console.error(error);
+                Swal.fire("Gagal", "Terjadi gangguan koneksi. Coba lagi ya.", "error");
+            });
         };
+
 
                 // LOAD DATA & STATS
         onValue(ref(db, 'testimonies'), (snap) => {
