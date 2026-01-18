@@ -61,7 +61,7 @@
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
         }
 
-        /* Profil Bulat & Animasi Pinggir */
+        /* Profil Bulat & Animasi Pinggir - FIXED COLOR #1d4ed8 */
         .profile-pic {
             width: 90px;
             height: 90px;
@@ -71,60 +71,56 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            border: 2px solid rgba(14, 165, 233, 0.5);
+            border: 2px solid #1d4ed8; /* Warna Biru Arrow */
             overflow: hidden;
             animation: glowPulse 3s infinite ease-in-out;
         }
 
         @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 5px rgba(14, 165, 233, 0.3); border-color: rgba(14, 165, 233, 0.3); }
-            50% { box-shadow: 0 0 20px rgba(14, 165, 233, 0.8); border-color: #0ea5e9; }
+            0%, 100% { 
+                box-shadow: 0 0 5px rgba(29, 78, 216, 0.3); 
+                border-color: #1d4ed8; 
+            }
+            50% { 
+                box-shadow: 0 0 20px rgba(29, 78, 216, 0.8); 
+                border-color: #1d4ed8; 
+            }
         }
 
         h1 { font-size: 32px; margin: 10px 0 5px; letter-spacing: 2px; font-weight: 700; }
 
         /* Style Verified Badge */
         .verified-badge {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 3px;
-    color: #0ea5e9;
-    font-size: 11px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    opacity: 0;
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: textSmoothEntry 1s ease-out 0.4s forwards;
-}
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+            color: #0ea5e9;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0;
+            animation: textSmoothEntry 1s ease-out 0.4s forwards;
+        }
 
-@keyframes textSmoothEntry {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+        @keyframes textSmoothEntry {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
 
-.verified-badge img {
-    width: 15px; 
-    height: 15px;
-    opacity: 0;
-    transform: scale(0.8);
-    /* Disamain: Delay 0.4s, Durasi 1s */
-    animation: iconSmoothEntry 1s ease-out 0.4s forwards;
-}
+        .verified-badge img {
+            width: 15px; 
+            height: 15px;
+            opacity: 0;
+            transform: scale(0.8);
+            animation: iconSmoothEntry 1s ease-out 0.4s forwards;
+        }
 
-@keyframes iconSmoothEntry {
-    from {
-        opacity: 0;
-        transform: scale(0.8);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-
+        @keyframes iconSmoothEntry {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
 
         /* Konten Utama */
         .container { width: 90%; max-width: 400px; margin-top: 20px; }
@@ -172,7 +168,7 @@
 
         .btn-link:hover {
             background: rgba(255, 255, 255, 0.1);
-            border-color: #0ea5e9;
+            border-color: #1d4ed8;
             transform: translateY(-3px) scale(1.02);
             box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
@@ -183,25 +179,26 @@
         .arrow-right { color: #1d4ed8; font-weight: bold; font-size: 18px; }
 
         .footer {
-    margin-top: 80px;
-    margin-bottom: 30px;
-    padding-top: 20px;
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.3); /* Putih samar biar elegan */
-    letter-spacing: 3px; /* Jarak huruf biar premium */
-    text-align: center;
-    font-weight: 500;
-    border-top: 1px solid rgba(255, 255, 255, 0.05); /* Garis batas halus */
-    width: 80%;
-    max-width: 300px;
-    text-shadow: 0 0 10px rgba(14, 165, 233, 0.2); /* Efek biru sangat tipis */
-}
-        /* --- COPY DARI SINI --- */
+            margin-top: 80px;
+            margin-bottom: 30px;
+            padding-top: 20px;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 3px;
+            text-align: center;
+            font-weight: 500;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 80%;
+            max-width: 300px;
+            text-shadow: 0 0 10px rgba(29, 78, 216, 0.2);
+        }
+
+        /* Navbar & Sidebar */
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 70px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
             z-index: 2000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
-            border-bottom: 1px solid rgba(14, 165, 233, 0.2); justify-content: space-between;
+            border-bottom: 1px solid rgba(29, 78, 216, 0.2); justify-content: space-between;
         }
         .burger { width: 30px; height: 20px; cursor: pointer; position: relative; z-index: 2100; }
         .burger span {
@@ -211,21 +208,22 @@
         .burger span:nth-child(1) { top: 0px; }
         .burger span:nth-child(2) { top: 8px; }
         .burger span:nth-child(3) { top: 16px; }
-        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); background: #fff; }
+        .burger.open span:nth-child(1) { top: 8px; transform: rotate(45deg); }
         .burger.open span:nth-child(2) { opacity: 0; left: -60px; }
-        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); background: #fff; }
+        .burger.open span:nth-child(3) { top: 8px; transform: rotate(-45deg); }
+        
         .sidebar {
             position: fixed; top: 0; left: -100%; width: 280px; height: 100%;
             background: rgba(5, 5, 5, 0.95); backdrop-filter: blur(20px);
             transition: 0.4s ease; z-index: 1050; padding: 100px 20px;
-            border-right: 1px solid rgba(14, 165, 233, 0.3); box-sizing: border-box;
+            border-right: 1px solid rgba(29, 78, 216, 0.3); box-sizing: border-box;
         }
         .sidebar.active { left: 0; }
         .sidebar a {
             display: block; padding: 15px; color: white; text-decoration: none;
             font-weight: 600; border-radius: 12px; margin-bottom: 10px; border: 1px solid transparent;
         }
-        .sidebar a:hover { background: rgba(14, 165, 233, 0.1); color: #0ea5e9; border-color: rgba(14, 165, 233, 0.2); }
+        .sidebar a:hover { background: rgba(29, 78, 216, 0.1); color: #0ea5e9; border-color: rgba(29, 78, 216, 0.2); }
         .overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.7); display: none; z-index: 1040;
@@ -233,7 +231,7 @@
     </style>
 </head>
 <body>
-<nav class="navbar">
+    <nav class="navbar">
         <div class="burger" id="burger" onclick="toggleMenu()">
             <span></span><span></span><span></span>
         </div>
@@ -248,6 +246,7 @@
         <a href="/testimoni">⭐ TESTIMONI</a>
         <a href="https://wa.me/6289603014462">💬 HUBUNGI SAYA</a>
     </div>
+
     <script>
         function toggleMenu() {
             document.getElementById('burger').classList.toggle('open');
@@ -256,6 +255,7 @@
             overlay.style.display = overlay.style.display === 'block' ? 'none' : 'block';
         }
     </script>
+
     <div class="header-card">
         <div class="profile-pic">
             <img src="logo.jpg" alt="Profile" style="width: 100%; height: 100%; object-fit: cover;">
@@ -332,7 +332,7 @@
         </a>
     </div>
 
-        <div class="footer">
+    <div class="footer">
         COPYRIGHT © HANN 25
     </div>
     
