@@ -6,31 +6,30 @@
     <title>HANN 25 - TESTIMONI</title>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* Animasi utama TANPA gerakan geser biar ga anjlok */
         @keyframes pageFade {
-            from { opacity: 0; filter: blur(8px); }
-            to { opacity: 1; filter: blur(0); }
+            from { opacity: 0; transform: translateY(10px); filter: blur(5px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
         }
 
-        /* Animasi tiap item tetep boleh geser biar keren */
         @keyframes itemFadeUp {
-            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         body {
             margin: 0; padding: 0; font-family: 'Inter', sans-serif;
             background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505);
-            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
-            color: white; min-height: 100vh; overflow-x: hidden;
+            background-size: 400% 400%; 
+            animation: gradientBG 15s ease infinite, pageFade 1.2s ease forwards;
+            color: white; display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh; padding-bottom: 60px; overflow-x: hidden;
         }
-        
+
         @keyframes gradientBG { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
         .navbar {
             position: fixed; top: 0; left: 0; width: 100%; height: 60px;
             background: rgba(0,0,0,0.5); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px);
-            z-index: 9999; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
+            z-index: 3000; display: flex; align-items: center; padding: 0 20px; box-sizing: border-box;
             border-bottom: 1px solid rgba(14, 165, 233, 0.1); justify-content: space-between;
         }
 
@@ -63,22 +62,16 @@
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 2000; }
 
-        /* Pembungkus konten biar sync ama Dashboard */
-        .content-wrapper {
-            width: 100%; display: flex; flex-direction: column; align-items: center;
-            padding-bottom: 60px;
-            animation: pageFade 0.8s ease-out forwards;
-        }
-
         .stats-box, .form-testi, .testi-card, .filters {
-            width: 92%; max-width: 400px; box-sizing: border-box;
-            opacity: 0; animation: itemFadeUp 0.6s ease forwards;
+            width: 92%; max-width: 400px; box-sizing: border-box; margin-left: auto; margin-right: auto;
+            opacity: 0; transform: translateY(20px);
+            animation: itemFadeUp 0.6s ease forwards;
         }
 
-        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation-delay: 0.3s; }
-        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px 0; animation-delay: 0.5s; }
-        .filters { display: flex; gap: 10px; margin: 10px 0 20px 0; animation-delay: 0.7s; }
-
+        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation-delay: 0.4s; }
+        
+        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation-delay: 0.6s; }
+        
         .profile-container { 
             position: relative; width: 80px; height: 80px; margin: 0 auto 5px; 
             border-radius: 50%; border: 2px solid #0ea5e9; overflow: hidden; 
@@ -89,13 +82,24 @@
         .avatar-overlay { width: 100%; height: 100%; z-index: 1; }
         .avatar-overlay img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transform: scale(1.05); }
 
-        .btn-pilih-foto { background: none; border: none; color: #0ea5e9; font-size: 11px; cursor: pointer; margin: 0 auto 15px; padding: 5px; width: 100%; font-weight: 700; display: block; position: relative; z-index: 10; }
+        .btn-pilih-foto { 
+            background: none; border: none; color: #0ea5e9; font-size: 11px; 
+            cursor: pointer; margin: 0 auto 15px; padding: 5px; width: 100%; 
+            font-weight: 700; display: block; position: relative; z-index: 10;
+        }
+
         .s { font-size: 26px; cursor: pointer; color: rgba(255,255,255,0.05); transition: 0.2s; }
         input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; }
         .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 14px; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; margin-top: 5px; font-size: 14px; text-transform: uppercase; }
+
+        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; animation-delay: 0.8s; }
         select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; }
         
-        .testi-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; margin-bottom: 12px; position: relative; width: 92%; max-width: 400px; }
+        .testi-card { 
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 15px; padding: 15px; margin-bottom: 12px; position: relative;
+        }
+
         .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; }
         .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
         .btn-love.liked { color: #ff4757; }
@@ -103,7 +107,6 @@
         
         .tgl { font-size: 10px; color: #444; position: absolute; top: 15px; right: 15px; }
         #submitted-msg { text-align: center; display: none; padding: 10px 0; }
-        .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
     </style>
 </head>
 <body>
@@ -116,63 +119,56 @@
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
 
-    <div class="sidebar" id="sidebar">
-        <a href="/">🏠 DASHBOARD</a>
-        <a href="/testimoni">⭐ TESTIMONI</a>
-        <a href="https://wa.me/6289603014462">💬 HUBUNGI SAYA</a>
+    <div class="sidebar" id="sidebar"></div>
+
+    <div class="stats-box">
+        <div id="avg-num" style="font-size:36px; font-weight:900;">0.0</div>
+        <div>
+            <div id="avg-star" style="color:#facc15; font-size: 16px;">⭐⭐⭐⭐⭐</div>
+            <div id="avg-pc" style="font-size:12px; color:#666;">0% puas</div>
+        </div>
     </div>
 
-    <div class="content-wrapper">
-        <div class="stats-box">
-            <div id="avg-num" style="font-size:36px; font-weight:900;">0.0</div>
-            <div>
-                <div id="avg-star" style="color:#facc15; font-size: 16px;">⭐⭐⭐⭐⭐</div>
-                <div id="avg-pc" style="font-size:12px; color:#666;">0% puas</div>
-            </div>
+    <div class="form-testi" id="form-container">
+        <div id="submitted-msg">
+            <div style="color: #10b981; font-size: 24px;">✓</div>
+            <div style="font-weight: 600; font-size: 14px; color: #fff;">Terkirim</div>
+            <div style="font-size: 11px; color: #555;">Ulasan lu udah masuk Bang.</div>
         </div>
 
-        <div class="form-testi" id="form-container">
-            <div id="submitted-msg">
-                <div style="color: #10b981; font-size: 24px;">✓</div>
-                <div style="font-weight: 600; font-size: 14px; color: #fff;">Terkirim</div>
-                <div style="font-size: 11px; color: #555;">Ulasan lu udah masuk Bang.</div>
-            </div>
-
-            <div id="main-form">
-                <div style="text-align:center;">
-                    <div class="profile-container">
-                        <img src="" id="p-prev" class="p-prev-img">
-                        <div class="avatar-overlay" id="av-ov">
-                            <img src="https://i.ibb.co.com/pBn06NLp/user.png">
-                        </div>
+        <div id="main-form">
+            <div style="text-align:center;">
+                <div class="profile-container">
+                    <img src="" id="p-prev" class="p-prev-img">
+                    <div class="avatar-overlay" id="av-ov">
+                        <img src="https://i.ibb.co.com/pBn06NLp/user.png">
                     </div>
-                    <button class="btn-pilih-foto" onclick="document.getElementById('f-in').click()">Ganti Foto</button>
-                    <input type="file" id="f-in" style="display:none" accept="image/*" onchange="window.prevImg()">
                 </div>
-                
-                <input type="text" id="t-name" placeholder="Nama Anda">
-                <div id="star-box" style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
-                    <span class="s" data-v="1">★</span><span class="s" data-v="2">★</span><span class="s" data-v="3">★</span><span class="s" data-v="4">★</span><span class="s" data-v="5">★</span>
-                </div>
-                <textarea id="t-msg" placeholder="Tulis Ulasan Anda" rows="3"></textarea>
-                <button class="btn-submit" id="btn-kirim" onclick="window.kirim()">KIRIM ULASAN</button>
+                <button class="btn-pilih-foto" onclick="document.getElementById('f-in').click()">Ganti Foto</button>
+                <input type="file" id="f-in" style="display:none" accept="image/*" onchange="window.prevImg()">
             </div>
+            
+            <input type="text" id="t-name" placeholder="Nama Anda">
+            <div id="star-box" style="display:flex; justify-content:center; gap:10px; margin-bottom:15px;">
+                <span class="s" data-v="1">★</span><span class="s" data-v="2">★</span><span class="s" data-v="3">★</span><span class="s" data-v="4">★</span><span class="s" data-v="5">★</span>
+            </div>
+            <textarea id="t-msg" placeholder="Tulis Ulasan Anda" rows="3"></textarea>
+            <button class="btn-submit" id="btn-kirim" onclick="window.kirim()">KIRIM ULASAN</button>
         </div>
-
-        <div class="filters">
-            <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
-            <select id="f-sort" onchange="window.renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
-        </div>
-
-        <div id="testi-list" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
-        
-        <div class="footer">COPYRIGHT © HANN 25</div>
     </div>
+
+    <div class="filters">
+        <select id="f-star" onchange="window.renderTesti()"><option value="all">Semua Bintang</option><option value="5">Bintang 5</option><option value="4">Bintang 4</option><option value="3">Bintang 3</option><option value="2">Bintang 2</option><option value="1">Bintang 1</option></select>
+        <select id="f-sort" onchange="window.renderTesti()"><option value="new">Terbaru</option><option value="old">Terlama</option></select>
+    </div>
+
+    <div id="testi-list" style="width:100%; display:flex; flex-direction:column; align-items:center;"></div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, push, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, push, onValue, runTransaction, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+        // Config Testimoni
         const firebaseConfig = {
             apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
             authDomain: "testimonihann25.firebaseapp.com",
@@ -180,8 +176,18 @@
             databaseURL: "https://testimonihann25-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
+        // Config Admin (untuk Sidebar)
+        const adminConfig = {
+            apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
+            databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
+
+        const appAdmin = initializeApp(adminConfig, "adminApp");
+        const dbAdmin = getDatabase(appAdmin);
+
         let selRating = 0, pBase = "", allData = [];
 
         window.toggleMenu = () => {
@@ -190,6 +196,16 @@
             const ov = document.getElementById('overlay');
             ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
         };
+
+        // Render Sidebar yang Sudah Urut dari Database Admin
+        onValue(query(ref(dbAdmin, 'dashboard/sidebar'), orderByChild('order')), (snap) => {
+            const side = document.getElementById('sidebar');
+            side.innerHTML = "";
+            snap.forEach(m => {
+                const d = m.val();
+                side.innerHTML += `<a href="${d.link}">${d.icon} ${d.label.toUpperCase()}</a>`;
+            });
+        });
 
         window.prevImg = () => {
             const file = document.getElementById('f-in').files[0];
@@ -261,7 +277,7 @@
                 const liked = localStorage.getItem('liked_' + t.id);
                 const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/pBn06NLp/user.png' : t.photo;
                 list.innerHTML += `
-                <div class="testi-card" style="animation-delay: ${0.8 + (idx * 0.1)}s">
+                <div class="testi-card" style="animation-delay: ${1 + (idx * 0.1)}s">
                     <span class="tgl">${t.date}</span>
                     <div style="display:flex;gap:10px;align-items:center;">
                         <img src="${img}" style="width:35px;height:35px;border-radius:50%;border:1px solid #0ea5e9;object-fit:cover;">
