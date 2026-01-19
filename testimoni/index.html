@@ -54,10 +54,8 @@
             border: 1px solid transparent; transition: all 0.3s ease; 
         }
         .sidebar a:hover { 
-            background: rgba(14, 165, 233, 0.1); 
-            color: #0ea5e9; 
-            border-color: rgba(14, 165, 233, 0.4); 
-            transform: scale(1.05);
+            background: rgba(14, 165, 233, 0.1); color: #0ea5e9; 
+            border-color: rgba(14, 165, 233, 0.4); transform: scale(1.05);
         }
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 2000; }
@@ -83,10 +81,16 @@
         .avatar-overlay img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transform: scale(1.05); }
 
         .btn-pilih-foto { 
-            background: none; border: none; color: #0ea5e9; font-size: 11px; 
-            cursor: pointer; margin: 0 auto 15px; padding: 5px; width: 100%; 
-            font-weight: 700; display: block; position: relative; z-index: 10;
+            background: rgba(14, 165, 233, 0.05); 
+            border: 1px solid rgba(14, 165, 233, 0.3); 
+            color: #0ea5e9; font-size: 10px; cursor: pointer; 
+            margin: 10px auto 15px; padding: 6px 15px; width: fit-content; 
+            font-weight: 800; display: block; position: relative; z-index: 10;
+            border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px;
+            transition: all 0.3s ease;
         }
+
+        .btn-pilih-foto:active { background: rgba(14, 165, 233, 0.2); transform: scale(0.95); }
 
         .s { font-size: 26px; cursor: pointer; color: rgba(255,255,255,0.05); transition: 0.2s; }
         input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; }
@@ -118,7 +122,6 @@
     </nav>
 
     <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
-
     <div class="sidebar" id="sidebar"></div>
 
     <div class="stats-box">
@@ -138,7 +141,7 @@
 
         <div id="main-form">
             <div style="text-align:center;">
-                <div class="profile-container">
+                <div class="profile-container" onclick="document.getElementById('f-in').click()" style="cursor:pointer;">
                     <img src="" id="p-prev" class="p-prev-img">
                     <div class="avatar-overlay" id="av-ov">
                         <img src="https://i.ibb.co.com/pBn06NLp/user.png">
@@ -168,7 +171,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, onValue, runTransaction, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Config Testimoni
         const firebaseConfig = {
             apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME",
             authDomain: "testimonihann25.firebaseapp.com",
@@ -176,7 +178,6 @@
             databaseURL: "https://testimonihann25-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
-        // Config Admin (untuk Sidebar)
         const adminConfig = {
             apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU",
             databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app"
@@ -184,7 +185,6 @@
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-
         const appAdmin = initializeApp(adminConfig, "adminApp");
         const dbAdmin = getDatabase(appAdmin);
 
@@ -197,7 +197,6 @@
             ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
         };
 
-        // Render Sidebar yang Sudah Urut dari Database Admin
         onValue(query(ref(dbAdmin, 'dashboard/sidebar'), orderByChild('order')), (snap) => {
             const side = document.getElementById('sidebar');
             side.innerHTML = "";
