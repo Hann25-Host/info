@@ -148,13 +148,15 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, onValue, runTransaction, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        const firebaseConfig = { apiKey: "AIzaSyALjgltMZpaRvsXnPywGXx-EcPLTHlt5ME", authDomain: "testimonihann25.firebaseapp.com", projectId: "testimonihann25", databaseURL: "https://testimonihann25-default-rtdb.asia-southeast1.firebasedatabase.app" };
-        const adminConfig = { apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU", databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const firebaseConfig = { 
+            apiKey: "AIzaSyBgqJ0f2v88T6Ijamd5gGS-NZzJyVl0pYU", 
+            authDomain: "adminhann25.firebaseapp.com", 
+            projectId: "adminhann25", 
+            databaseURL: "https://adminhann25-default-rtdb.asia-southeast1.firebasedatabase.app" 
+        };
 
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const appAdmin = initializeApp(adminConfig, "adminApp");
-        const dbAdmin = getDatabase(appAdmin);
 
         let selRating = 0, pBase = "", allData = [];
 
@@ -165,7 +167,8 @@
             ov.style.display = ov.style.display === 'block' ? 'none' : 'block';
         };
 
-        onValue(query(ref(dbAdmin, 'dashboard/sidebar'), orderByChild('order')), (snap) => {
+        // Render Sidebar pakai DB yang sama
+        onValue(query(ref(db, 'dashboard/sidebar'), orderByChild('order')), (snap) => {
             const side = document.getElementById('sidebar');
             side.innerHTML = "";
             snap.forEach(m => {
@@ -197,6 +200,7 @@
             if(localStorage.getItem('h_testi_sent')) return;
             const n = document.getElementById('t-name').value.trim(), m = document.getElementById('t-msg').value.trim();
             if(!n || !m || selRating == 0) return Swal.fire("Waduh!", "Data belum lengkap.", "warning");
+            Swal.fire({ title: 'Mengirim...', didOpen: () => Swal.showLoading() });
             push(ref(db, 'testimonies'), { name: n, message: m, rating: parseInt(selRating), photo: pBase || "default", likes: 0, date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), ts: Date.now() }).then(() => { localStorage.setItem('h_testi_sent', 'true'); location.reload(); });
         };
 
