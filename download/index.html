@@ -267,14 +267,21 @@
         
         window.handleLike = (btn, id, e) => {
             e.stopPropagation();
-            if(btn.classList.contains('liked')) return;
+            if(btn.classList.contains('liked') || localStorage.getItem('dl_fav_' + id)) return;
             btn.classList.add('liked');
-            runTransaction(ref(db, `downloads/${id}/likes`), c => (c||0)+1).then((res) => { 
-                localStorage.setItem('dl_fav_'+id, 'true'); 
-                btn.querySelector('.love-count').innerText = res.snapshot.val();
+            const countEl = btn.querySelector('.love-count');
+            let currentCount = parseInt(countEl.innerText) || 0;
+            countEl.innerText = currentCount + 1;
+            localStorage.setItem('dl_fav_' + id, 'true');
+            runTransaction(ref(db, `downloads/${id}/likes`), (currentLikes) => {
+                return (currentLikes || 0) + 1;
+            }).catch(err => {
+                btn.classList.remove('liked');
+                countEl.innerText = currentCount;
+                localStorage.removeItem('dl_fav_' + id);
             });
         };
-        
+
         window.addEventListener('click', (e) => { if (!e.target.closest('.custom-select')) { document.querySelectorAll('.custom-select').forEach(s => s.classList.remove('open')); } });
     </script>
 </body>
