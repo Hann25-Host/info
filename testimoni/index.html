@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HANN 25 - TESTIMONI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         @keyframes pageFade {
@@ -16,10 +17,10 @@
         }
 
         body {
-            margin: 0; padding: 0; font-family: 'Inter', sans-serif;
+            margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif;
             background: linear-gradient(-45deg, #000, #0a0a0a, #0d1b3e, #050505);
             background-size: 400% 400%; 
-            animation: gradientBG 15s ease infinite, pageFade 1.2s ease forwards;
+            animation: gradientBG 15s ease infinite;
             color: white; display: flex; flex-direction: column; align-items: center;
             min-height: 100vh; padding-bottom: 60px; overflow-x: hidden;
         }
@@ -66,9 +67,9 @@
             animation: itemFadeUp 0.6s ease forwards;
         }
 
-        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation-delay: 0.4s; }
+        .stats-box { margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation-delay: 0.2s; }
         
-        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation-delay: 0.6s; }
+        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation-delay: 0.4s; }
         
         .profile-container { 
             position: relative; width: 80px; height: 80px; margin: 0 auto 5px; 
@@ -87,29 +88,29 @@
             margin: 10px auto 15px; padding: 6px 15px; width: fit-content; 
             font-weight: 800; display: block; position: relative; z-index: 10;
             border-radius: 8px; text-transform: uppercase; letter-spacing: 0.5px;
-            transition: all 0.3s ease;
+            transition: all 0.3s ease; font-family: 'Plus Jakarta Sans', sans-serif;
         }
 
         .btn-pilih-foto:active { background: rgba(14, 165, 233, 0.2); transform: scale(0.95); }
 
         .s { font-size: 26px; cursor: pointer; color: rgba(255,255,255,0.05); transition: 0.2s; }
-        input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; }
-        .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 14px; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; margin-top: 5px; font-size: 14px; text-transform: uppercase; }
+        input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
+        .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 14px; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; margin-top: 5px; font-size: 14px; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; }
 
-        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; animation-delay: 0.8s; }
-        select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; }
+        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; animation-delay: 0.6s; }
+        select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; }
         
         .testi-card { 
             background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
             border-radius: 15px; padding: 15px; margin-bottom: 12px; position: relative;
         }
 
-        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; }
+        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; }
         .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
         .btn-love.liked { color: #ff4757; }
         .btn-love.liked svg { fill: #ff4757; stroke: #ff4757; }
         
-        .tgl { font-size: 10px; color: #444; position: absolute; top: 15px; right: 15px; }
+        .tgl { font-size: 10px; color: #444; position: absolute; top: 15px; right: 15px; font-weight: 600; }
         #submitted-msg { text-align: center; display: none; padding: 10px 0; }
         
         .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
@@ -280,7 +281,7 @@
                 const liked = localStorage.getItem('liked_' + t.id);
                 const img = (t.photo === 'default' || !t.photo) ? 'https://i.ibb.co.com/pBn06NLp/user.png' : t.photo;
                 list.innerHTML += `
-                <div class="testi-card" style="animation-delay: ${1 + (idx * 0.1)}s">
+                <div class="testi-card" style="animation-delay: ${0.5 + (idx * 0.1)}s">
                     <span class="tgl">${t.date}</span>
                     <div style="display:flex;gap:10px;align-items:center;">
                         <img src="${img}" style="width:35px;height:35px;border-radius:50%;border:1px solid #0ea5e9;object-fit:cover;">
