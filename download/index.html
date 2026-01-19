@@ -81,8 +81,24 @@
         .thumb { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-bottom: 1px solid var(--border); }
         .card-body { padding: 18px; }
         
-        .badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-        .cat-badge { font-size: 9px; font-weight: 800; color: var(--primary); background: rgba(14, 165, 233, 0.1); padding: 4px 10px; border-radius: 6px; text-transform: uppercase; border: 1px solid rgba(14, 165, 233, 0.1); }
+                .badge-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-bottom: 10px; 
+            gap: 8px;
+        }
+        .cat-badge { 
+            font-size: 9px; 
+            font-weight: 800; 
+            color: var(--primary); 
+            background: rgba(14, 165, 233, 0.1); 
+            padding: 4px 8px; 
+            border-radius: 6px; 
+            text-transform: uppercase; 
+            border: 1px solid rgba(14, 165, 233, 0.1);
+            white-space: nowrap;
+        }
         .via-badge { font-size: 10px; font-weight: 700; color: #666; text-transform: uppercase; }
 
         .title { font-size: 16px; font-weight: 800; color: #fff; text-transform: uppercase; margin: 0 0 12px 0; }
@@ -205,20 +221,14 @@
             if(snap.exists()){ snap.forEach(c => { rawFiles.push({id: c.key, ...c.val()}); }); window.renderFiles(); }
         });
 
-        window.renderFiles = () => {
+                        window.renderFiles = () => {
             const list = document.getElementById('file-list');
             const search = document.getElementById('search-input').value.toLowerCase();
-            let processedFiles = [];
-
-            rawFiles.forEach(f => {
-                let catString = (f.category && typeof f.category === 'string') ? f.category : 'BOT';
-                const categories = catString.split(',').map(s => s.trim());
-                categories.forEach(cat => { processedFiles.push({ ...f, activeCategory: cat }); });
-            });
             
-            let filtered = processedFiles.filter(f => {
+            let filtered = rawFiles.filter(f => {
                 const mSearch = (f.title || "").toLowerCase().includes(search);
-                const mCat = window.filters.cat === 'all' || f.activeCategory.toLowerCase() === window.filters.cat;
+                const fileCats = (f.category || "BOT").toLowerCase().split(',').map(s => s.trim());
+                const mCat = window.filters.cat === 'all' || fileCats.includes(window.filters.cat.toLowerCase());
                 const mPlat = window.filters.plat === 'all' || (f.platform || "").toLowerCase() === window.filters.plat;
                 return mSearch && mCat && mPlat;
             });
@@ -229,18 +239,25 @@
 
             list.innerHTML = filtered.map(f => {
                 const liked = localStorage.getItem('dl_fav_'+f.id);
-                const viaText = f.platform ? (f.platform.toUpperCase() === 'WA' ? 'VIA: WA' : 'VIA: TELE') : 'VIA: WA';
-                const cardUID = `${f.id}-${f.activeCategory.replace(/\s+/g, '')}`;
+                // PERUBAHAN TEKS DISINI
+                const viaText = f.platform ? (f.platform.toUpperCase() === 'WA' ? 'VIA WA' : 'VIA TELE') : 'VIA WA';
+                
+                const categories = (f.category || "BOT").split(',').map(cat => 
+                    `<span class="cat-badge">${cat.trim().toUpperCase()}</span>`
+                ).join('');
+
                 return `
-                <div class="dl-card" id="card-${cardUID}" onclick="window.toggleCard('${cardUID}', event)">
+                <div class="dl-card" id="card-${f.id}" onclick="window.toggleCard('${f.id}', event)">
                     <img src="${f.thumb}" class="thumb" onerror="this.src='https://via.placeholder.com/400x225?text=HANN25'">
                     <div class="card-body">
-                        <div class="badge-row">
-                            <span class="cat-badge">${f.activeCategory.toUpperCase()}</span>
-                            <span class="via-badge">${viaText}</span>
+                        <div class="badge-row" style="display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 12px;">
+                            <div style="display: flex; gap: 5px; flex-wrap: wrap; flex: 1;">
+                                ${categories}
+                            </div>
+                            <span class="via-badge" style="white-space: nowrap; margin-top: 4px;">${viaText}</span>
                         </div>
                         <h3 class="title">${f.title}</h3>
-                        <div id="desc-${cardUID}" class="desc-box">${f.desc || '-'}</div>
+                        <div id="desc-${f.id}" class="desc-box">${f.desc || '-'}</div>
                         <div class="stats-row">
                             <div class="stat-item">📅 ${f.date || '-'}</div>
                             <div class="stat-item">📥 ${f.dlCount||0} Downloads</div>
