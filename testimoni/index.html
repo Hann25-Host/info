@@ -85,8 +85,9 @@
         .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; width: 92%; max-width: 400px; opacity: 0; animation: itemFadeUp 0.6s ease forwards 0.8s; }
         select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
-        .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; transition: 0.2s; }
+        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; transition: transform 0.2s; }
+        .btn-love:active { transform: scale(1.2); }
+        .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; transition: all 0.2s; }
         .btn-love.liked { color: #ff4757; pointer-events: none; }
         .btn-love.liked svg { fill: #ff4757; stroke: #ff4757; }
         
@@ -153,7 +154,7 @@
         <div class="footer">© 2026 HANN 25 • ALL RIGHTS RESERVED</div>
     </div>
 
-    <script type="module">
+        <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, push, onValue, runTransaction, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -249,18 +250,22 @@
             if(localStorage.getItem('liked_' + id) || isLiking[id]) return;
             
             isLiking[id] = true;
-            btn.classList.add('liked'); 
+
             const countSpan = btn.querySelector('span');
-            countSpan.innerText = parseInt(countSpan.innerText) + 1;
+            const currentLikes = parseInt(countSpan.innerText);
+            
+            btn.classList.add('liked');
+            countSpan.innerText = currentLikes + 1;
+            localStorage.setItem('liked_' + id, 'true');
 
             runTransaction(ref(db, `testimonies/${id}/likes`), (curr) => {
                 return (curr || 0) + 1;
-            }).then(() => { 
-                localStorage.setItem('liked_' + id, 'true'); 
+            }).then(() => {
                 delete isLiking[id];
             }).catch(() => {
                 btn.classList.remove('liked');
-                countSpan.innerText = parseInt(countSpan.innerText) - 1;
+                countSpan.innerText = currentLikes;
+                localStorage.removeItem('liked_' + id);
                 delete isLiking[id];
             });
         };
@@ -317,6 +322,7 @@
             document.getElementById('main-form').style.display = 'none';
             document.getElementById('submitted-msg').style.display = 'block';
         }
+
     </script>
 </body>
 </html>
