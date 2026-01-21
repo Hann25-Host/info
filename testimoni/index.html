@@ -7,7 +7,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        /* --- BUFFERING SYSTEM --- */
         #loading-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #050505; display: flex; flex-direction: column;
@@ -24,15 +23,8 @@
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .loading-text { margin-top: 15px; font-size: 10px; letter-spacing: 3px; color: #0ea5e9; font-weight: 800; }
 
-        @keyframes pageFade {
-            from { opacity: 0; filter: blur(8px); }
-            to { opacity: 1; filter: blur(0); }
-        }
-
-        @keyframes itemFadeUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes pageFade { from { opacity: 0; filter: blur(8px); } to { opacity: 1; filter: blur(0); } }
+        @keyframes itemFadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
         body {
             margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif;
@@ -71,34 +63,11 @@
 
         .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; z-index: 2000; }
 
-        .content-wrapper {
-            width: 100%; display: flex; flex-direction: column; align-items: center;
-            padding-bottom: 60px;
-            animation: pageFade 1s ease forwards;
-        }
+        .content-wrapper { width: 100%; display: flex; flex-direction: column; align-items: center; padding-bottom: 60px; animation: pageFade 1s ease forwards; }
 
-        .stats-box, .form-testi, .filters {
-            width: 92%; max-width: 400px; box-sizing: border-box;
-            opacity: 0;
-        }
+        .stats-box { width: 92%; max-width: 400px; margin-top: 85px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; display: flex; align-items: center; gap: 20px; animation: itemFadeUp 0.6s ease forwards 0.4s; box-sizing: border-box; opacity: 0; }
 
-        .stats-box { 
-    width: 92%;
-    max-width: 400px;
-    box-sizing: border-box; /* Tambahkan ini */
-    margin-top: 85px; 
-    background: rgba(255,255,255,0.02); 
-    border: 1px solid rgba(255, 255, 255, 0.1); 
-    border-radius: 20px; 
-    padding: 20px; 
-    display: flex; 
-    align-items: center; 
-    gap: 20px; 
-    animation: itemFadeUp 0.6s ease forwards 0.4s; 
-}
-
-        .form-testi { background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation: itemFadeUp 0.6s ease forwards 0.6s; }
-        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; animation: itemFadeUp 0.6s ease forwards 0.8s; }
+        .form-testi { width: 92%; max-width: 400px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 20px; margin: 15px auto; animation: itemFadeUp 0.6s ease forwards 0.6s; box-sizing: border-box; opacity: 0; }
 
         .profile-container { position: relative; width: 80px; height: 80px; margin: 0 auto 5px; border-radius: 50%; border: 2px solid #0ea5e9; overflow: hidden; background: #111; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(14, 165, 233, 0.3); z-index: 1; }
         .p-prev-img { width: 100%; height: 100%; object-fit: cover; display: none; position: absolute; top: 0; left: 0; z-index: 2; }
@@ -110,22 +79,12 @@
         .s { font-size: 26px; cursor: pointer; color: rgba(255,255,255,0.05); transition: 0.2s; }
         input, textarea { width: 100%; padding: 12px; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; margin-bottom: 10px; box-sizing: border-box; outline: none; font-size: 14px; font-family: 'Plus Jakarta Sans', sans-serif; }
         .btn-submit { width: 100%; background: #0ea5e9; border: none; padding: 14px; border-radius: 10px; color: #fff; font-weight: 800; cursor: pointer; margin-top: 5px; font-size: 14px; text-transform: uppercase; font-family: 'Plus Jakarta Sans', sans-serif; }
+        
+        .testi-card { width: 92%; max-width: 400px; box-sizing: border-box; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 15px; padding: 15px; margin-bottom: 12px; position: relative; opacity: 0; animation: itemFadeUp 0.6s ease forwards; }
+
+        .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; width: 92%; max-width: 400px; opacity: 0; animation: itemFadeUp 0.6s ease forwards 0.8s; }
         select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        .testi-card { 
-    width: 92%; 
-    max-width: 400px; 
-    box-sizing: border-box; /* WAJIB supaya padding 15px nggak bikin kartunya melebar */
-    background: rgba(255,255,255,0.02); 
-    border: 1px solid rgba(255,255,255,0.05); 
-    border-radius: 15px; 
-    padding: 15px; 
-    margin-bottom: 12px; 
-    position: relative; 
-    opacity: 0; 
-    animation: itemFadeUp 0.6s ease forwards; 
-}
-
         .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
         .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
         .btn-love.liked { color: #ff4757; }
@@ -133,6 +92,8 @@
         
         .tgl { font-size: 10px; color: #444; position: absolute; top: 15px; right: 15px; font-weight: 600; }
         .footer { margin-top: 60px; font-size: 9px; color: rgba(255, 255, 255, 0.2); text-align: center; letter-spacing: 2px; }
+        
+        #submitted-msg { animation: itemFadeUp 0.5s ease forwards; }
     </style>
 </head>
 <body>
@@ -160,10 +121,10 @@
         </div>
 
         <div class="form-testi" id="form-container">
-            <div id="submitted-msg" style="text-align: center; display: none; padding: 10px 0;">
-                <div style="color: #10b981; font-size: 24px;">✓</div>
-                <div style="font-weight: 600; font-size: 14px; color: #fff;">Terkirim</div>
-                <div style="font-size: 11px; color: #555;">Ulasan lu udah masuk Bang.</div>
+            <div id="submitted-msg" style="text-align: center; display: none; padding: 20px 0;">
+                <div style="background: #10b981; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; color: white; font-size: 24px; font-weight: bold; box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);">✓</div>
+                <div style="font-weight: 800; font-size: 16px; color: #fff; letter-spacing: 1px; text-transform: uppercase;">DONE</div>
+                <div style="font-size: 11px; color: #666; margin-top: 5px;">Ulasan lu udah masuk Bang.</div>
             </div>
             <div id="main-form">
                 <div style="text-align:center;">
@@ -226,14 +187,27 @@
 
         window.prevImg = () => {
             const file = document.getElementById('f-in').files[0];
+            if (!file) return;
             const reader = new FileReader();
-            reader.onloadend = () => { 
-                pBase = reader.result; 
-                document.getElementById('p-prev').src = reader.result; 
-                document.getElementById('p-prev').style.display = 'block';
-                document.getElementById('av-ov').style.display = 'none';
+            reader.onloadend = () => {
+                const img = new Image();
+                img.src = reader.result;
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const MAX_SIZE = 400;
+                    let width = img.width, height = img.height;
+                    if (width > height) { if (width > MAX_SIZE) { height *= MAX_SIZE / width; width = MAX_SIZE; } }
+                    else { if (height > MAX_SIZE) { width *= MAX_SIZE / height; height = MAX_SIZE; } }
+                    canvas.width = width; canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    pBase = canvas.toDataURL('image/jpeg', 0.7);
+                    document.getElementById('p-prev').src = pBase;
+                    document.getElementById('p-prev').style.display = 'block';
+                    document.getElementById('av-ov').style.display = 'none';
+                };
             };
-            if(file) reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
         };
 
         document.querySelectorAll('.s').forEach(s => {
@@ -244,11 +218,31 @@
         });
 
         window.kirim = () => {
-            if(localStorage.getItem('h_testi_sent')) return;
+            if(localStorage.getItem('h_testi_sent')) {
+                return Swal.fire("Eits!", "Udah kirim sekali kan Bang, gak boleh lagi.", "info");
+            }
             const n = document.getElementById('t-name').value.trim(), m = document.getElementById('t-msg').value.trim();
-            if(!n || !m || selRating == 0) return Swal.fire("Waduh!", "Data belum lengkap.", "warning");
-            Swal.fire({ title: 'Mengirim...', didOpen: () => Swal.showLoading() });
-            push(ref(db, 'testimonies'), { name: n, message: m, rating: parseInt(selRating), photo: pBase || "default", likes: 0, date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), ts: Date.now() }).then(() => { localStorage.setItem('h_testi_sent', 'true'); location.reload(); });
+            if(!n || !m || selRating == 0) return Swal.fire("Waduh!", "Isi semua dulu Bang.", "warning");
+            
+            Swal.fire({ title: 'Mengirim...', allowOutsideClick: false, didOpen: () => Swal.showLoading() });
+            
+            push(ref(db, 'testimonies'), { 
+                name: n, 
+                message: m, 
+                rating: parseInt(selRating), 
+                photo: pBase || "default", 
+                likes: 0, 
+                date: new Date().toLocaleDateString('id-ID', {day:'numeric', month:'short', year:'numeric'}), 
+                ts: Date.now() 
+            }).then(() => { 
+                localStorage.setItem('h_testi_sent', 'true');
+                Swal.close();
+                document.getElementById('main-form').style.display = 'none';
+                document.getElementById('submitted-msg').style.display = 'block';
+                // Tidak perlu reload agar user bisa lihat indikator DONE
+            }).catch(() => {
+                Swal.fire("Error", "Gagal kirim, coba lagi.", "error");
+            });
         };
 
         window.handleLike = (id) => {
@@ -256,27 +250,15 @@
             runTransaction(ref(db, `testimonies/${id}/likes`), (curr) => (curr || 0) + 1).then(() => { localStorage.setItem('liked_' + id, 'true'); window.renderTesti(); });
         };
 
-        // --- FETCH DATA TESTIMONI ---
         onValue(ref(db, 'testimonies'), (snap) => {
             allData = []; 
             if(snap.exists()){
-                snap.forEach(c => { 
-                    let it = c.val(); 
-                    it.id = c.key; 
-                    allData.push(it); 
-                });
+                snap.forEach(c => { let it = c.val(); it.id = c.key; allData.push(it); });
                 updateStats();
                 window.renderTesti();
-            } else {
-                document.getElementById('testi-list').innerHTML = "<p style='color:#444; font-size:12px; margin-top:20px;'>Belum ada ulasan.</p>";
             }
-
-            // --- LOGIC HAPUS LOADER ---
             const loader = document.getElementById('loading-overlay');
-            if (loader) {
-                loader.style.opacity = '0';
-                setTimeout(() => loader.remove(), 500);
-            }
+            if (loader) { loader.style.opacity = '0'; setTimeout(() => loader.remove(), 500); }
         });
 
         function updateStats() {
