@@ -85,9 +85,10 @@
         .filters { display: flex; gap: 10px; margin: 10px auto 20px auto; width: 92%; max-width: 400px; opacity: 0; animation: itemFadeUp 0.6s ease forwards 0.8s; }
         select { background: #000; color: #fff; border: 1px solid rgba(255, 255, 255, 0.1); padding: 10px; border-radius: 10px; flex: 1; outline: none; font-size: 13px; font-family: 'Plus Jakarta Sans', sans-serif; }
         
-        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; }
-        .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; }
-        .btn-love.liked { color: #ff4757; }
+        .btn-love { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,0.3); border: none; background: none; padding: 0; margin-top: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 600; transition: transform 0.2s; }
+        .btn-love:active { transform: scale(1.2); }
+        .btn-love svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; transition: all 0.2s; }
+        .btn-love.liked { color: #ff4757; pointer-events: none; }
         .btn-love.liked svg { fill: #ff4757; stroke: #ff4757; }
         
         .tgl { font-size: 10px; color: #444; position: absolute; top: 15px; right: 15px; font-weight: 600; }
@@ -168,6 +169,7 @@
         const db = getDatabase(app);
 
         let selRating = 0, pBase = "", allData = [];
+        let isLiking = {};
 
         window.toggleMenu = () => {
             document.getElementById('burger').classList.toggle('open');
@@ -239,15 +241,29 @@
                 Swal.close();
                 document.getElementById('main-form').style.display = 'none';
                 document.getElementById('submitted-msg').style.display = 'block';
-                // Tidak perlu reload agar user bisa lihat indikator DONE
             }).catch(() => {
                 Swal.fire("Error", "Gagal kirim, coba lagi.", "error");
             });
         };
 
-        window.handleLike = (id) => {
-            if(localStorage.getItem('liked_' + id)) return;
-            runTransaction(ref(db, `testimonies/${id}/likes`), (curr) => (curr || 0) + 1).then(() => { localStorage.setItem('liked_' + id, 'true'); window.renderTesti(); });
+        window.handleLike = (id, btn) => {
+            if(localStorage.getItem('liked_' + id) || isLiking[id]) return;
+            
+            isLiking[id] = true;
+            btn.classList.add('liked'); 
+            const countSpan = btn.querySelector('span');
+            countSpan.innerText = parseInt(countSpan.innerText) + 1;
+
+            runTransaction(ref(db, `testimonies/${id}/likes`), (curr) => {
+                return (curr || 0) + 1;
+            }).then(() => { 
+                localStorage.setItem('liked_' + id, 'true'); 
+                delete isLiking[id];
+            }).catch(() => {
+                btn.classList.remove('liked');
+                countSpan.innerText = parseInt(countSpan.innerText) - 1;
+                delete isLiking[id];
+            });
         };
 
         onValue(ref(db, 'testimonies'), (snap) => {
@@ -290,7 +306,7 @@
                         </div>
                     </div>
                     <p style="font-size:12px;margin:8px 0;line-height:1.4;color:#ccc;">${t.message}</p>
-                    <button class="btn-love ${liked ? 'liked' : ''}" onclick="window.handleLike('${t.id}')">
+                    <button class="btn-love ${liked ? 'liked' : ''}" onclick="window.handleLike('${t.id}', this)">
                         <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
                         <span>${t.likes || 0}</span>
                     </button>
