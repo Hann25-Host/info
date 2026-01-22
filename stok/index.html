@@ -461,18 +461,29 @@
         });
 
         // Load Data Stok
-        onValue(ref(db, 'stok_akun'), (snap) => {
+                onValue(ref(db, 'stok_akun'), (snap) => {
             masterData = [];
             snap.forEach(c => {
                 const d = c.val();
                 
-                // Logika ID Permanen: ambil 4 digit akhir dari Firebase Key
-                const shortId = c.key.substring(c.key.length - 4).toUpperCase();
-                const prefixMap = { 'MOBILE LEGENDS': 'ML', 'FREE FIRE': 'FF', 'PUBG': 'PB', 'ROBLOX': 'RB', 'SOSMED': 'SM', 'LAINNYA': 'LN' };
+                // 1. Bersihkan Key dari karakter non-alfanumerik (hapus strip, dll)
+                const cleanKey = c.key.replace(/[^A-Z0-9]/gi, '');
+                
+                // 2. Ambil 4 karakter terakhir dari key yang sudah bersih
+                const shortId = cleanKey.substring(cleanKey.length - 4).toUpperCase();
+                
+                const prefixMap = { 
+                    'MOBILE LEGENDS': 'ML', 
+                    'FREE FIRE': 'FF', 
+                    'PUBG': 'PB', 
+                    'ROBLOX': 'RB', 
+                    'SOSMED': 'SM', 
+                    'LAINNYA': 'LN' 
+                };
                 const pref = prefixMap[d.kategori] || 'ID';
                 
-                // Gunakan id_acak dari DB jika ada, jika tidak buat otomatis (tetap konsisten)
-                const finalId = d.id_acak ? d.id_acak : `${pref}${shortId}`;
+                // 3. Gabungkan. Hasilnya pasti cuma Huruf/Angka (contoh: FF88A1)
+                const finalId = d.id_acak ? d.id_acak.replace(/-/g, '') : `${pref}${shortId}`;
 
                 masterData.push({
                     dbId: c.key, 
@@ -485,6 +496,7 @@
             document.getElementById('loading-overlay').style.opacity = '0';
             setTimeout(() => document.getElementById('loading-overlay').remove(), 500);
         });
+
 
         window.applyFilters = () => {
             const s = document.getElementById('search-input').value.toLowerCase();
