@@ -447,59 +447,63 @@
         let filteredData = [];
         let displayLimit = 10;
 
-        onValue(query(ref(db, 'dashboard/sidebar'), orderByChild('order')), (snap) => {
-            const side = document.getElementById('sidebar'); 
-            side.innerHTML = "";
-            snap.forEach(m => { 
-                const d = m.val(); 
-                side.innerHTML += `<a href="${d.link}">${d.icon} ${d.label.toUpperCase()}</a>`; 
-            });
-        });
-
         onValue(ref(db, 'stok_akun'), (snap) => {
-            masterData = [];
-            snap.forEach(c => {
-                const d = c.val();
-                const prefixMap = { 'MOBILE LEGENDS': 'ML', 'FREE FIRE': 'FF', 'PUBG': 'PB', 'ROBLOX': 'RB', 'SOSMED': 'SM', 'LAINNYA': 'LN' };
-                const pref = prefixMap[d.kategori] || 'ID';
-                if(!d.id_acak) d.id_acak = `${pref}${Math.floor(1000 + Math.random() * 9000)}`;
-                masterData.push({dbId: c.key, ts: d.ts || 0, ...d});
-            });
-            window.applyFilters();
-            document.getElementById('loading-overlay').style.opacity = '0';
-            setTimeout(() => document.getElementById('loading-overlay').remove(), 500);
+    masterData = [];
+    snap.forEach(c => {
+        const d = c.val();
+        
+        // Menggunakan 4 karakter terakhir dari Firebase Key agar ID bersifat permanen & unik
+        const shortId = c.key.substring(c.key.length - 4).toUpperCase();
+        const prefixMap = { 'MOBILE LEGENDS': 'ML', 'FREE FIRE': 'FF', 'PUBG': 'PB', 'ROBLOX': 'RB', 'SOSMED': 'SM', 'LAINNYA': 'LN' };
+        const pref = prefixMap[d.kategori] || 'ID';
+        
+        // Jika di database belum ada id_acak, gunakan shortId dari key (tetap saat refresh)
+        const finalId = d.id_acak ? d.id_acak : `${pref}${shortId}`;
+
+        masterData.push({
+            dbId: c.key, 
+            ts: d.ts || 0, 
+            id_acak: finalId,
+            ...d
         });
+    });
+    window.applyFilters();
+    document.getElementById('loading-overlay').style.opacity = '0';
+    setTimeout(() => document.getElementById('loading-overlay').remove(), 500);
+});
 
-        window.applyFilters = () => {
-            const s = document.getElementById('search-input').value.toLowerCase();
-            const cat = document.getElementById('f-cat').value;
-            const p = document.getElementById('f-price').value;
-            const stat = document.getElementById('f-status').value;
-            const sortOrder = document.getElementById('f-sort').value;
+window.applyFilters = () => {
+    const s = document.getElementById('search-input').value.toLowerCase();
+    const cat = document.getElementById('f-cat').value;
+    const p = document.getElementById('f-price').value;
+    const stat = document.getElementById('f-status').value;
+    const sortOrder = document.getElementById('f-sort').value;
 
-            filteredData = masterData.filter(i => {
-                const mS = i.nama.toLowerCase().includes(s);
-                const mC = cat === 'ALL' || i.kategori === cat;
-                const mSt = stat === 'ALL' || (i.status_akun || i.status || 'Fresh') === stat;
-                let mP = true;
-                if(p !== 'ALL'){ 
-                    const [min, max] = p.split('-').map(Number); 
-                    mP = i.harga >= min && i.harga <= max; 
-                }
-                return mS && mC && mSt && mP;
-            });
+    filteredData = masterData.filter(i => {
+        // Fitur Search: Mencari berdasarkan Nama ATAU ID Acak
+        const mS = i.nama.toLowerCase().includes(s) || i.id_acak.toLowerCase().includes(s);
+        const mC = cat === 'ALL' || i.kategori === cat;
+        const mSt = stat === 'ALL' || (i.status_akun || i.status || 'Fresh') === stat;
+        let mP = true;
+        if(p !== 'ALL'){ 
+            const [min, max] = p.split('-').map(Number); 
+            mP = i.harga >= min && i.harga <= max; 
+        }
+        return mS && mC && mSt && mP;
+    });
 
-            filteredData.sort((a, b) => {
-                const statusA = (a.status_stok || "READY") === 'READY' ? 0 : 1;
-                const statusB = (b.status_stok || "READY") === 'READY' ? 0 : 1;
-                
-                if (statusA !== statusB) return statusA - statusB;
-                return sortOrder === 'DESC' ? b.ts - a.ts : a.ts - b.ts;
-            });
+    filteredData.sort((a, b) => {
+        const statusA = (a.status_stok || "READY") === 'READY' ? 0 : 1;
+        const statusB = (b.status_stok || "READY") === 'READY' ? 0 : 1;
+        
+        if (statusA !== statusB) return statusA - statusB;
+        return sortOrder === 'DESC' ? b.ts - a.ts : a.ts - b.ts;
+    });
 
-            displayLimit = 10;
-            render();
-        };
+    displayLimit = 10;
+    render();
+};
+
 
         window.loadMore = () => { displayLimit += 10; render(); };
 
