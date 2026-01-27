@@ -492,10 +492,23 @@
                     ...d
                 });
             });
-            window.applyFilters();
+                        window.applyFilters();
+            
+            // Logika baru untuk handle tab baru / refresh
+            const urlParams = new URLSearchParams(window.location.search);
+            const idParam = urlParams.get('id');
+            if (idParam) {
+                const itemToOpen = masterData.find(i => i.id_acak === idParam);
+                if (itemToOpen) {
+                    // Beri delay sedikit agar render list selesai
+                    setTimeout(() => window.openDetail(itemToOpen.dbId), 300);
+                }
+            }
+
             document.getElementById('loading-overlay').style.opacity = '0';
             setTimeout(() => document.getElementById('loading-overlay').remove(), 500);
         });
+
 
 
         window.applyFilters = () => {
@@ -570,7 +583,8 @@
         window.openDetail = (dbId, e) => {
             if(e) e.stopPropagation();
             const item = masterData.find(i => i.dbId === dbId);
-            window.history.pushState({ modalOpen: true }, '', `/stok/${item.id_acak}`);
+            window.history.pushState({ modalOpen: true }, '', `?id=${item.id_acak}`);
+
 
             const detailImgs = item.fotos || [];
             document.getElementById('modal-content').innerHTML = `
@@ -604,6 +618,8 @@
             } else {
                 document.getElementById('detail-modal').style.display = 'none';
                 document.body.style.overflow = 'auto';
+                // Menghilangkan ?id= di URL tanpa reload halaman
+                window.history.replaceState({}, '', window.location.pathname);
             }
         };
 
